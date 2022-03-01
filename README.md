@@ -1,7 +1,18 @@
-# team-project-club_elon
+# Team Project - Club Elon
 
-# Team members:
-# 1. Ruturaj Nawale
-# 2. Roshan Chokshi
-# 3. Yaduvendra Sing
-# 4. Chandra Pavan Reddy
+## Team members:
+## 1. Ruturaj Nawale
+## 2. Roshan Chokshi
+## 3. Yaduvendra Sing
+## 4. Chandra Pavan Reddy
+
+## Contributions: g
+## Ruturaj - Frontend
+## Roshan - Frontend
+## Yaduvendra - Backend and AWS
+## Chandra - Backend
+
+## Technology Requirements:
+## Javascript
+## MongoDB
+## React

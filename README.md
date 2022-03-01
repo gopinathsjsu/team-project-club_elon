@@ -6,7 +6,7 @@
 ## 3. Yaduvendra Sing
 ## 4. Chandra Pavan Reddy
 
-## Contributions: 
+## Contributions: g
 ## Ruturaj - Frontend
 ## Roshan - Frontend
 ## Yaduvendra - Backend and AWS

@@ -16,10 +16,7 @@
 ## Javascript
 ## MongoDB
 ## React
+## NodeJS
 
-## package installation commands in frontend:
+## Node package installation command to download node_modules:
 ### npm install
-### npm install react-router-dom@4.3.1
-### npm install react-router@4.3.1
-### npm install axios
-### npm install react-cookies

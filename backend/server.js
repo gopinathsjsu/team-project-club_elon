@@ -20,7 +20,6 @@ connection.once('open', () => {
 
 const exercisesRouter = require('./routes/excercises');
 const usersRouter = require('./routes/users');
-const apiErrorHandler = require('./errors/api-error-handler');
 
 app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);

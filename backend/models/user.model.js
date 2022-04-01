@@ -4,13 +4,13 @@ const Schema = require('mongoose').Schema;
 
 const userSchema = new Schema({
     username: {
-        type: String
-        //required: true
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
     }
-    // age: {
-    //     type: Number,
-    //     required: true
-    // }
 }
 );
 

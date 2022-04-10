@@ -1,5 +1,7 @@
 const router = require('express').Router();
 let Hotel = require('../models/hotel.model');
+const Room = require('../models/room.model');
+const singleRoom = require('../models/singleRoom.model')
 
 router.route('/getHotel').get((req, res) => {
   const hotelId = req.body.hotelId;
@@ -30,18 +32,48 @@ router.route('/getHotels').get((req, res) => {
 });
 
 router.route('/createHotel').post((req, res) => {
-  const hotelId = req.body.hotelId;
   const hotelName = req.body.hotelName;
   const hotelPhone = Number(req.body.hotelPhone);
   const hotelAddress = req.body.hotelAddress;
+  let rooms = []
+  const receivedRooms = req.body.rooms
+  receivedRooms.forEach(room => {
+    let roomName = room.name
+    let roomPrice = room.price
+    let roomCount = room.count
+    let newRoom = new Room({
+      roomName,
+      roomPrice,
+      roomCount,
+    });
+    let bookings = []
+    // let endFrom = []
 
+    for(i = 0; i<12;i++){
+      bookings.push([])
+      // endFrom.push([])
+  }
+    let singleroom = new singleRoom({
+      roomName,
+      bookings
+    });
+    singleroom.save().then((result) => {
+    rooms.push(newRoom)
+      
+    }).catch((err) => {
+      console.log("error while creating single room");
+    });
+    // console.log(newRoom);
+  });
+// console.log(sendRooms);
   const newHotel = new Hotel({
-    hotelId,
     hotelName,
     hotelPhone,
     hotelAddress,
+    rooms
   });
 
+// console.log(newHotel);
   newHotel.save()
   .then(() => res.json('Hotel added!'))
   .catch(err => res.status(400).json('Error: ' + err));

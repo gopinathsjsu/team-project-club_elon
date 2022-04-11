@@ -7,7 +7,8 @@ import { Redirect } from "react-router";
 //Define a Register Component
 function Register() {
   //maintain the state required for this component
-  const [email, setEmail] = useState(null);
+  const [fullName, setFullName] = useState(null);
+  const [username, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [authMsg, setAuthMsg] = useState(null);
   const [RedirectVar, setRedirectVar] = useState(null);
@@ -23,7 +24,7 @@ function Register() {
     //prevent page from refresh
     e.preventDefault();
     const data = {
-      email: email,
+      username: username,
       password: password,
     };
     //set the with credentials to true
@@ -37,7 +38,7 @@ function Register() {
         } else {
           setAuthMsg(
             <p style={{ color: "red" }}>
-              An account with this email already exists!
+              An account with this username already exists!
             </p>
           );
         }
@@ -54,7 +55,7 @@ function Register() {
             <div class="main-div">
               <div class="panel">
                 <h2>Register</h2>
-                <p>Please enter your email and password</p>
+                <p>Please enter your username and password</p>
               </div>
 
               <div class="form-group">
@@ -62,9 +63,9 @@ function Register() {
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
-                  type="email"
+                  type="username"
                   class="form-control"
-                  name="email"
+                  name="username"
                   placeholder="Email"
                   autoFocus
                 />

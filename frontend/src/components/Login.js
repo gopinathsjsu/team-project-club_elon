@@ -7,7 +7,7 @@ import { Redirect } from "react-router";
 //Define a Login Component
 function Login() {
   //maintain the state required for this component
-  const [email, setEmail] = useState(null);
+  const [username, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [authMsg, setAuthMsg] = useState(null);
   const [RedirectVar, setRedirectVar] = useState(null);
@@ -24,7 +24,7 @@ function Login() {
     //prevent page from refresh
     e.preventDefault();
     const data = {
-      email: email,
+      username: username,
       password: password,
     };
     //set the with credentials to true
@@ -57,7 +57,7 @@ function Login() {
             <div class="main-div">
               <div class="panel">
                 <h2>Login</h2>
-                <p>Please enter your email and password</p>
+                <p>Please enter your username and password</p>
               </div>
 
               <div class="form-group">
@@ -65,9 +65,9 @@ function Login() {
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
-                  type="email"
+                  type="username"
                   class="form-control"
-                  name="email"
+                  name="username"
                   placeholder="Email"
                   autoFocus
                 />

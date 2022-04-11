@@ -18,10 +18,7 @@ router.route('/getHotel').get((req, res) => {
 });
 
 router.route('/getHotels').get((req, res) => {
-  const hotelName = req.body.hotelName;
-  Hotel.find({
-    "hotelName" : hotelName
-  })
+  Hotel.find()
     .then(hotels => {
       if(!hotels)
         res.status(400).send({ message : "Hotel Not Found"})

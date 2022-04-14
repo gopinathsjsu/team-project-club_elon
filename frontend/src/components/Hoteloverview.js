@@ -9,6 +9,7 @@ function Hoteloverview(props) {
   return (
     <div>
     {hotelName}
+    This is change from RN branch
     </div>
   );
 }

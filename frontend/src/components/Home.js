@@ -1,4 +1,4 @@
-import {React, useEffect, useState} from "react";
+import { React, useEffect, useState } from "react";
 import axios from "axios";
 import cookie from "react-cookies";
 import { Redirect } from "react-router";
@@ -13,7 +13,7 @@ function Home() {
     axios
       .get(process.env.REACT_APP_LOCALHOST + "/hotels/gethotels")
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         setHotels(
           <div className="container">
             <div className="row">

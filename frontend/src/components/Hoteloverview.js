@@ -8,7 +8,8 @@ function Hoteloverview(props) {
 
   return (
     <div>
-    {hotelName}
+      {hotelName}
+      Hello hotel page
     </div>
   );
 }

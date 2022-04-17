@@ -3,48 +3,48 @@
 ## Team member
 1. Ruturaj Nawale
 
-### What I did since the last daily scrum:
-- 
+### What I did since the last sprint:
+- Completed Login and Sign up Pages
 
-### What I plan to do today:
-- 
+### What I plan to do in the next sprint:
+- Plan to work on Admin and Hotel pages
 
 ### What blockers I have:
--
+- No blockers
 
 ## Team member
 2. Roshan Chokshi
 
-### What I did since the last daily scrum:
-- 
+### What I did since the last sprint:
+- Started working on Customer loyality, Seasonal pricing and customer reward Points
 
-### What I plan to do today:
-- 
+### What I plan to do in the next sprint:
+- Complete the current in-progress tasks
 
 ### What blockers I have:
--
+- No blockers
 
 ## Team member
 3. Chandra Pavan Reddy
 
-### What I did since the last daily scrum:
-- 
+### What I did since the last sprint:
+- Started working on Sign up and Login apis
 
-### What I plan to do today:
-- 
+### What I plan to do in the next sprint:
+- Complete the current task and begin Admin api
 
 ### What blockers I have:
--
+- No blockers
 
 ## Team member
 4. Yaduvendra Singh
 
-### What I did since the last daily scrum:
-- 
+### What I did since the last sprint:
+- Started booking api and DB design
 
-### What I plan to do today:
-- 
+### What I plan to do in the next sprint:
+- complete current task and begin hotel api
 
 ### What blockers I have:
--
+- No blockers
 

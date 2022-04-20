@@ -43,6 +43,8 @@ router.route('/createHotel').post((req, res) => {
       roomPrice,
       roomCount,
     });
+
+    
     let bookings = []
     // let endFrom = []
 
@@ -55,12 +57,13 @@ router.route('/createHotel').post((req, res) => {
       bookings
     });
     singleroom.save().then((result) => {
-    rooms.push(newRoom)
+    
       
     }).catch((err) => {
       console.log("error while creating single room");
     });
     // console.log(newRoom);
+    rooms.push(newRoom);
   });
 // console.log(sendRooms);
   const newHotel = new Hotel({

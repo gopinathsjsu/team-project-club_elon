@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const bookingData = require("../models/bookingData.model");
 let Hotel = require("../models/hotel.model");
 const Room = require("../models/room.model");
 const singleRoom = require("../models/singleRoom.model");
@@ -9,18 +10,37 @@ router.route("/createBooking").post((req, res) => {
   //   const roomID = req.body.startDate;
 
   const roomName = req.body.roomName;
-  var startDateArr = req.body.startDate.split(/ |,/);
-  var endDateArr = req.body.endDate.split(/ |,/);
+  const roomId = req.body.roomId;
+  const userId = req.body.userId;
+  const amenities = req.body.amenities;
+  const bookingTime = req.body.bookingTime;
+  const amount = req.body.amount;
+
+  const newBookingData = new bookingData({
+    roomId,
+    userId,
+    amenities,
+    bookingTime,
+    amount
+  });
+//get date in javascript Date format and fill month and day from that date
+//first find difference between dates then move to booking if diff <= 7 days
 
   let startDate = {
-    month: startDateArr[0],
-    day: startDateArr[1]
+    month,
+    day
   };
 
   let endDate = {
-    month: endDateArr[0],
-    day: endDateArr[1]
+    month,
+    day 
   };
+
+  startDate.month = req.body.startDate.day;
+  startDate.day = req.body.startdate.month;
+  endDate.month = req.body.endDate.day;
+  endDate.day = req.body.enddate.month;
+
   //getCurrentRoom
   singleRoom
     .find({
@@ -73,10 +93,13 @@ router.route("/createBooking").post((req, res) => {
           )
             .then((hotels) => {
               if (!hotels) res.status(400).send({ message: "Not found" });
-              else res.send("updated");
+              else {
+                  newBookingData.save()
+                  .then(() => res.send("updated"))
+                  .catch(err => res.status(400).json('Error: ' + err));
+              }
             })
-            .catch((err) => res.status(400).json("Error: " + err));
-            return;
+            .catch((err) => res.status(400).json("Error: " + err))
         }
       })
     }

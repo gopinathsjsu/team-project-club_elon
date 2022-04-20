@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const singleroomSchema = new Schema({
   roomName: { type: String, required: true },
   bookings: [[{type: Number , required:true}]],
-
+  
 }, {
   timestamps: true,
 });

@@ -16,6 +16,7 @@ function Hoteloverview() {
         </div>
         {hotel.rooms.map((room) => (
           <div key={room._id} id="cardItem" className="col-md-8">
+            {(room.hotel = hotel.hotelName)}
             <Roomcard room={room} />
           </div>
         ))}

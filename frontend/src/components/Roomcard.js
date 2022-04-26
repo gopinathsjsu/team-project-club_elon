@@ -11,7 +11,7 @@ export default function Roomcard({ room }) {
           Some quick example text to build on the card title and make up the
           bulk of the card's content.
         </p>
-        <Link to="#" className="btn btn-dark">
+        <Link to="/roomoverview" className="btn btn-dark" state={room}>
           Book Now
         </Link>
         <p>Available Rooms: {room.roomCount}</p>

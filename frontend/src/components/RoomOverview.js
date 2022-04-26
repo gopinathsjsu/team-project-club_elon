@@ -23,22 +23,26 @@ function RoomOverview() {
     console.log([year, month, day].join("-"));
     return [year, month, day].join("-");
   };
-  const checkBooking = (checkInDate, checkOutDate) => {
+  const checkBooking = (checkInDate, checkOutDate, roomData) => {
+    let sdate = new Date(checkInDate);
+    let edate = new Date(checkOutDate);
+
     const startDate = {
-      month: checkInDate.getMonth() + 1,
-      day: checkInDate.getDate(),
+      month: sdate.getMonth() + 1,
+      day: edate.getDate(),
     };
 
     const endDate = {
-      month: checkOutDate.getMonth() + 1,
-      day: checkOutDate.getDate(),
+      month: sdate.getMonth() + 1,
+      day: edate.getDate(),
     };
 
-    const hotel = room.hotel;
-    const room = room.roomName;
+    const hotel = roomData.hotel;
+    const room = roomData.roomName;
 
+    console.log({ startDate, endDate, hotel, room });
     axios.post(
-      "booking/checkBooking",
+      process.env.REACT_APP_LOCALHOST + "/booking/createBooking",
       {
         startDate,
         endDate,
@@ -77,7 +81,10 @@ function RoomOverview() {
             onChange={(e) => setCheckOutDate(e.target.value)}
           ></input>
         </div>
-        <button className="btn btn-dark" onClick={() => checkBooking}>
+        <button
+          className="btn btn-dark"
+          onClick={() => checkBooking(checkInDate, checkOutDate, room)}
+        >
           Book Now
         </button>
       </div>

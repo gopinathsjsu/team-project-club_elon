@@ -1,9 +1,9 @@
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const apiErrorHandler = require('./errors/api-error-handler');
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const apiErrorHandler = require("./errors/api-error-handler");
 
-require('dotenv').config();
+require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -14,20 +14,20 @@ app.use(express.json());
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri);
 const connection = mongoose.connection;
-connection.once('open', () => {
+connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
-})
+});
 
-const hotelsRouter = require('./routes/hotels');
-const usersRouter = require('./routes/users');
-const bookingRouter = require('./routes/booking');
+const hotelsRouter = require("./routes/hotels");
+const usersRouter = require("./routes/users");
+const bookingRouter = require("./routes/booking");
 
-app.use('/hotels', hotelsRouter);
-app.use('/users', usersRouter);
-app.use('/booking', bookingRouter );
+app.use("/hotels", hotelsRouter);
+app.use("/users", usersRouter);
+app.use("/booking", bookingRouter);
 
 app.use(apiErrorHandler);
 
 app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
+  console.log(`Server is running on port: ${port}`);
 });

@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Hoteloverview from "./components/Hoteloverview";
+import RoomOverview from "./components/RoomOverview";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -23,6 +24,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/hoteloverview" element={<Hoteloverview />} />
+          <Route path="/roomoverview" element={<RoomOverview />} />
+
           {/*redirects any other url other then above to / path i.e. login*/}
         </Routes>
       </div>

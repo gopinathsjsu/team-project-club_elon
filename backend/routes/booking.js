@@ -5,16 +5,15 @@ const Room = require("../models/room.model");
 const singleRoom = require("../models/singleRoom.model");
 
 router.route("/createBooking").post((req, res) => {
-  const roomName = req.body.roomName;
-  const hotelName = req.body.hotelName;
-  const roomId = req.body.roomId;
+  const roomName = req.body.room;
+  const hotel = req.body.hotel;
   const userId = req.body.userId;
   const amenities = req.body.amenities;
   const bookingTime = req.body.bookingTime;
   const amount = req.body.amount;
 
   const newBookingData = new bookingData({
-    roomId,
+    room,
     userId,
     amenities,
     bookingTime,
@@ -42,12 +41,11 @@ router.route("/createBooking").post((req, res) => {
   singleRoom
     .find({
       "roomName": roomName,
-      "hotelName": hotelName
+      "hotelName": hotel
     })
     .then((result) => {
       if (!result) res.status(400).send({ message: "Room Not Found" });
       else {
-          //convert given date to date objectand check if booking is for less than 7 days (pending)
 
         result.forEach(currRoom => {
 

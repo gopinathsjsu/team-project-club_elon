@@ -29,11 +29,11 @@ function RoomOverview() {
 
     const startDate = {
       month: sdate.getMonth() + 1,
-      day: edate.getDate(),
+      day: sdate.getDate(),
     };
 
     const endDate = {
-      month: sdate.getMonth() + 1,
+      month: edate.getMonth() + 1,
       day: edate.getDate(),
     };
 

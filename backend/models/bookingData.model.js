@@ -6,7 +6,7 @@ const bookingDataSchema = new Schema({
     ownerId:  { type: String, required: true },
     startdate: { type: Date, required: true },
     endDate: { type: Date, required: true },
-    amenities: [{ type: String, required: true }],
+    amenities: [{ type: String, required: true, type: Number, required: true,  }],
     bookingTime: { type: Date, required: true },
     amount: { type: Number, required: true }
 },
@@ -14,6 +14,6 @@ const bookingDataSchema = new Schema({
     timestamps: true
 });
 
-const bookingData = mongoose.model('bookkingData', bookingDataSchema)
+const bookingData = mongoose.model('booking', bookingDataSchema)
 
 module.exports = bookingData;

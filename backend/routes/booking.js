@@ -5,11 +5,8 @@ const Room = require("../models/room.model");
 const singleRoom = require("../models/singleRoom.model");
 
 router.route("/createBooking").post((req, res) => {
-  //   const startDate = req.body.startDate;
-  //   const endDate = req.body.endDate;
-  //   const roomID = req.body.startDate;
-
   const roomName = req.body.roomName;
+  const hotelName = req.body.hotelName;
   const roomId = req.body.roomId;
   const userId = req.body.userId;
   const amenities = req.body.amenities;
@@ -44,7 +41,8 @@ router.route("/createBooking").post((req, res) => {
   //getCurrentRoom
   singleRoom
     .find({
-      "roomName": roomName
+      "roomName": roomName,
+      "hotelName": hotelName
     })
     .then((result) => {
       if (!result) res.status(400).send({ message: "Room Not Found" });

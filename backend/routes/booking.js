@@ -13,7 +13,7 @@ router.route("/createBooking").post((req, res) => {
   const amount = req.body.amount;
 
   const newBookingData = new bookingData({
-    room,
+    roomName,
     userId,
     amenities,
     bookingTime,
@@ -23,19 +23,19 @@ router.route("/createBooking").post((req, res) => {
 //first find difference between dates then move to booking if diff <= 7 days
 
   let startDate = {
-    month,
-    day
+    month: req.body.startDate.month,
+    day:req.body.startDate.day
   };
 
   let endDate = {
-    month,
-    day 
+    month:req.body.endDate.month,
+    day: req.body.endDate.day 
   };
 
-  startDate.month = req.body.startDate.day;
-  startDate.day = req.body.startdate.month;
-  endDate.month = req.body.endDate.day;
-  endDate.day = req.body.enddate.month;
+  // startDate.month = req.body.startDate.day;
+  // startDate.day = req.body.startdate.month;
+  // endDate.month = req.body.endDate.day;
+  // endDate.day = req.body.enddate.month;
 
   //getCurrentRoom
   singleRoom

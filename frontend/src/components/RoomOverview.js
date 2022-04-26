@@ -70,6 +70,7 @@ function RoomOverview() {
           <input
             type="date"
             placeholder="Check-in Date"
+            min={new Date().toISOString().split("T")[0]}
             onChange={(e) => setCheckInDate(e.target.value)}
           ></input>
           <label>Check Out Date</label>

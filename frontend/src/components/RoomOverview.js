@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 function RoomOverview() {
   const location = useLocation();
@@ -54,6 +54,18 @@ function RoomOverview() {
           console.log(err);
         } else {
           console.log(res);
+          if (res.data.message === "SUCCESS") {
+            alert(
+              "Booking Successful, redirecting to booking page in 5 seconds"
+            );
+            setInterval(() => {
+              <Navigate to="/bookings" />;
+            }, 5000);
+          } else if (res.status === 400) {
+            alert("Booking Failed");
+          } else {
+            alert("Booking Failed");
+          }
         }
       }
     );

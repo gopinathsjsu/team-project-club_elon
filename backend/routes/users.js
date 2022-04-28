@@ -4,7 +4,7 @@ let User = require('../models/user.model');
 const bcrypt = require('bcrypt');
 
 
-router.route('/login').get((req, res) => {
+router.route('/login').post((req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 

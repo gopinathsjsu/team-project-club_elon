@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../App.css";
 import axios from "axios";
-import cookie from "react-cookies";
 import { Redirect } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 //Define a Login Component
 function Login() {
@@ -11,12 +11,13 @@ function Login() {
   const [password, setPassword] = useState(null);
   const [authMsg, setAuthMsg] = useState(null);
   const [RedirectVar, setRedirectVar] = useState(null);
+  let navigate = useNavigate();
 
   //currently using cookie, todo: use JWT token
   //if session is active Redirect to home page
   let RedirectVar1 = null;
-  if (cookie.load("cookie")) {
-    RedirectVar1 = <Redirect to="/home" />;
+  if (localStorage.getItem("userName")) {
+    setRedirectVar(navigate("../hotels", { replace: true }));
   }
 
   //submit Login handler to send a request to the node backend
@@ -28,14 +29,15 @@ function Login() {
       password: password,
     };
     //set the with credentials to true
-    axios.defaults.withCredentials = true;
     //make a post request with the user data
     //Note:  REACT_APP_LOCALHOST is an env variable so that we can change the actual host address easily from one place for all API requests
     axios
-      .post(process.env.REACT_APP_LOCALHOST + "/login", data)
+      .post(process.env.REACT_APP_LOCALHOST + "/users/login", data)
       .then((response) => {
-        if (response.data === "SUCCESS") {
-          setRedirectVar(<Redirect to="/home" />);
+        console.log(response.data);
+        if (response.status === 200) {
+          setRedirectVar(navigate("../hotels", { replace: true }));
+          localStorage.setItem("userName", username);
         } else {
           setAuthMsg(
             <p style={{ color: "red" }}>
@@ -50,7 +52,6 @@ function Login() {
   return (
     <div>
       {RedirectVar}
-      {RedirectVar1}
       <form onSubmit={submitLogin}>
         <div class="container">
           <div class="login-form">

@@ -2,6 +2,50 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  let home = null;
+  let register = null;
+  let login = null;
+  let logout = null;
+  let bookings = null;
+
+  if (!localStorage.getItem("userName")) {
+    register = (
+      <li class="nav-item active">
+        <Link class="nav-link" to={"/users/register"}>
+          Register <span class="sr-only">(current)</span>
+        </Link>
+      </li>
+    );
+    login = (
+      <li class="nav-item active">
+        <Link class="nav-link" to={"/users/login"}>
+          Login <span class="sr-only">(current)</span>
+        </Link>
+      </li>
+    );
+
+    <li class="nav-item">
+      <Link class="nav-link" to={"/bookings"}>
+        home
+      </Link>
+    </li>;
+  } else {
+    home = (
+      <Link class="navbar-brand md-2" to={"/hotels"}>
+        Hotel Management System
+      </Link>
+    );
+    logout = (
+      <Link class="nav-link" to={"/users/logout"}>
+        Logout <span class="sr-only">(current)</span>
+      </Link>
+    );
+    bookings = (
+      <Link class="nav-link" to={"#"}>
+        Bookings <span class="sr-only">(current)</span>
+      </Link>
+    );
+  }
   return (
     <div>
       <head>
@@ -24,9 +68,6 @@ function Navbar() {
           crossorigin="anonymous"
         ></script>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <Link class="navbar-brand md-2" to={"/hotels"}>
-            Hotel Management System
-          </Link>
           <button
             class="navbar-toggler"
             type="button"
@@ -44,16 +85,11 @@ function Navbar() {
             id="navbarSupportedContent"
           >
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <Link class="nav-link" to={"/login"}>
-                  Login <span class="sr-only">(current)</span>
-                </Link>
-              </li>
-              <li class="nav-item">
-                <Link class="nav-link" to={"/bookings"}>
-                  Bookings
-                </Link>
-              </li>
+              {home}
+              {register}
+              {login}
+              {bookings}
+              {logout}
             </ul>
           </div>
         </nav>

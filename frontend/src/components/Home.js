@@ -1,15 +1,17 @@
 import { React, useEffect, useState } from "react";
 import axios from "axios";
-import cookie from "react-cookies";
-import { Redirect } from "react-router";
 import Hotelcard from "./Hotelcard";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [hotels, setHotels] = useState([]);
+  const [RedirectVar, setRedirectVar] = useState(null);
+  let navigate = useNavigate();
 
   useEffect(() => {
-    // axios.defaults.headers.common["authorization"] =
-    // localStorage.getItem("token");
+    if (!localStorage.getItem("userName")) {
+      setRedirectVar(navigate("../users/login", { replace: true }));
+    }
     axios
       .get(process.env.REACT_APP_LOCALHOST + "/hotels/gethotels")
       .then((response) => {
@@ -30,6 +32,7 @@ function Home() {
 
   return (
     <div class="home">
+      {RedirectVar}
       <h1>Explore different Hotels, Prices and Book now!</h1>
       {hotels}
     </div>

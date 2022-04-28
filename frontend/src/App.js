@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Hoteloverview from "./components/Hoteloverview";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import RoomOverview from "./components/RoomOverview";
 import Navbar from "./components/Navbar";
 import Logout from "./components/Logout";
 
@@ -21,7 +22,7 @@ function App() {
           <Route path="/users/logout" element={<Logout />} />
           <Route path="/users/register" element={<Register />} />
           <Route path="/hoteloverview" element={<Hoteloverview />} />
-          {/*redirects any other url other then above to / path i.e. login*/}
+          <Route path="/roomoverview" element={<RoomOverview />} />
         </Routes>
       </div>
     </Router>

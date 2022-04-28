@@ -29,40 +29,51 @@ router.route('/getHotels').get((req, res) => {
 });
 
 router.route('/createHotel').post((req, res) => {
+  console.log(req.body);
   const hotelName = req.body.hotelName;
   const hotelPhone = Number(req.body.hotelPhone);
   const hotelAddress = req.body.hotelAddress;
   let rooms = []
   const receivedRooms = req.body.rooms
+  console.log(receivedRooms);
   receivedRooms.forEach(room => {
+
     let roomName = room.name
     let roomPrice = room.price
     let roomCount = room.count
+    console.log(roomCount);
     let newRoom = new Room({
       roomName,
       roomPrice,
       roomCount,
     });
-    let bookings = []
-    // let endFrom = []
+    rooms.push(newRoom);
 
-    for(i = 0; i<12;i++){
-      bookings.push([])
-      // endFrom.push([])
-  }
+    for (let i = 0; i < parseInt(roomCount); i++) {
+      console.log(i);
+      let bookings = []
+      // let endFrom = []
+  
+      for(j = 0; j<12;j++){
+        bookings.push([])
+        // endFrom.push([])
+    }
+
     let singleroom = new singleRoom({
       roomName,
+      hotelName,
       bookings
     });
     singleroom.save().then((result) => {
-    rooms.push(newRoom)
+    console.log("Room saved:" + result);
       
     }).catch((err) => {
       console.log("error while creating single room");
     });
-    // console.log(newRoom);
+    
+      
+    }
   });
-// console.log(sendRooms);
   const newHotel = new Hotel({
     hotelName,
     hotelPhone,

@@ -3,6 +3,7 @@ import "../App.css";
 import axios from "axios";
 import cookie from "react-cookies";
 import { Redirect } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 //Define a Register Component
 function Register() {
@@ -13,10 +14,10 @@ function Register() {
   const [authMsg, setAuthMsg] = useState(null);
   const [RedirectVar, setRedirectVar] = useState(null);
 
-  //currently using cookie, todo: use JWT token
-  let RedirectVar1 = null;
-  if (cookie.load("cookie")) {
-    RedirectVar1 = <Redirect to="/home" />;
+  let navigate = useNavigate();
+
+  if (localStorage.getItem("userName")) {
+    setRedirectVar(navigate("../hotels", { replace: true }));
   }
 
   //submit Login handler to send a request to the node backend
@@ -27,14 +28,12 @@ function Register() {
       username: username,
       password: password,
     };
-    //set the with credentials to true
-    axios.defaults.withCredentials = true;
-    //make a post request with the user data
+
     axios
-      .post(process.env.REACT_APP_LOCALHOST + "/register", data)
+      .post(process.env.REACT_APP_LOCALHOST + "/users/register", data)
       .then((response) => {
-        if (response.data === "SUCCESS") {
-          setRedirectVar(<Redirect to="/login" />);
+        if (response.status === 200) {
+          setRedirectVar(navigate("../users/login", { replace: true }));
         } else {
           setAuthMsg(
             <p style={{ color: "red" }}>
@@ -48,7 +47,6 @@ function Register() {
   return (
     <div>
       {RedirectVar}
-      {RedirectVar1}
       <form onSubmit={submitRegister}>
         <div class="container">
           <div class="login-form">

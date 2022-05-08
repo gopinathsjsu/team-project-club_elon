@@ -152,3 +152,43 @@
 ### What blockers I have:
 - Issue in booking at the end of the month
 
+
+
+
+# Team: Club Elon, Sprint #4    
+
+## Team member
+1. Ruturaj Nawale
+
+### What I did since the last sprint:
+- Completed Admin page and performed testing
+
+### What blockers I have:
+- No blockers
+
+## Team member
+2. Roshan Chokshi
+
+### What I did since the last sprint:
+- Completed all tasks and performed testing
+
+### What blockers I have:
+- No blockers
+
+## Team member
+3. Chandra Pavan Reddy
+
+### What I did since the last sprint:
+- Completed admin api and performed testing
+
+### What blockers I have:
+- No blockers
+
+## Team member
+4. Yaduvendra Singh
+
+### What I did since the last sprint:
+- Completed hotel api, performed testing and deployed the application
+
+### What blockers I have:
+- No blockers

@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 const bookingDataSchema = new Schema({
     roomId: { type: String, required: true },
     ownerId:  { type: String, required: true },
-    startdate: { type: Date, required: true },
-    endDate: { type: Date, required: true },
+    startdate: { type: String, required: true },
+    endDate: { type: String, required: true },
     amenities: [{ type: String, required: true, type: Number, required: true,  }],
-    bookingTime: { type: Date, required: true },
+    bookingTime: { type: String, required: true },
     amount: { type: Number, required: true }
 },
 {

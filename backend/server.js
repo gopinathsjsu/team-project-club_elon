@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const apiErrorHandler = require("./errors/api-error-handler");
 
 require("dotenv").config();
-
 const app = express();
 const port = process.env.PORT || 3001;
 

@@ -12,13 +12,7 @@ router.route("/createBooking").post((req, res) => {
   const bookingTime = req.body.bookingTime;
   const amount = req.body.amount;
   
-  const newBookingData = new bookingData({
-    roomName,
-    userId,
-    amenities,
-    bookingTime,
-    amount,
-  });
+  
   //get date in javascript Date format and fill month and day from that date
   //first find difference between dates then move to booking if diff <= 7 days
 
@@ -103,18 +97,33 @@ router.route("/createBooking").post((req, res) => {
                     },
                   }
                 )
-                .then((hotels) => {
-                  if (!hotels) 
+                .then((responseBooking) => {
+                  if (!responseBooking) 
                   {
                     res.status(400).send({ message: "Not found" });
                     
                   }
                   else {
-                    roomBooked = true
-                    res.send("updated");
-                    // newBookingData.save()
-                    // .then(() => res.send("updated"))
-                    // .catch(err => res.status(400).json('Error: ' + err));
+                    // roomBooked = true
+                    // res.send("updated");
+                    let currRoomID = currRoom._id
+                    startDateResp = startDate.month + " " + startDate.day + " " + "2022"
+                    endDate = endDate.month + " " + endDate.day + " " + "2022"
+                    let amenities = ["parking, spa, gym"]
+                    bookingTime = new Date().toLocaleString()
+                    amount = 200
+                    const newBookingData = new bookingData({
+                      currRoomID,
+                      userName,
+                      startDate,
+                      endDate,
+                      amenities,
+                      bookingTime,
+                      amount,
+                    });
+                    newBookingData.save()
+                    .then(() => res.send("updated"))
+                    .catch(err => res.status(400).json('Error: ' + err));
                   }
                 })
                 .catch((err) => res.status(400).json("Error: " + err));

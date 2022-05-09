@@ -8,7 +8,6 @@ router.route('/login').post((req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
-
   User.find({
     "username" : username,
   })

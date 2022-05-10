@@ -20,10 +20,14 @@ connection.once("open", () => {
 const hotelsRouter = require("./routes/hotels");
 const usersRouter = require("./routes/users");
 const bookingRouter = require("./routes/booking");
+const amenitiesRouter = require("./routes/amenities");
+const adminRouter = require("./routes/admin");
 
 app.use("/hotels", hotelsRouter);
 app.use("/users", usersRouter);
 app.use("/booking", bookingRouter);
+app.use("/amenities",amenitiesRouter);
+app.use("/admin",adminRouter);
 
 app.use(apiErrorHandler);
 

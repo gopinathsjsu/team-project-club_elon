@@ -18,6 +18,10 @@ let amenitiesList = [
     {
         "amenity" : "Play Area", 
         "price" : 20
+    },
+    {
+        "meals" : "Meals",
+        "price" : 30
     }
 ]
 

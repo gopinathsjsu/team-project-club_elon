@@ -3,6 +3,22 @@ import hotelUrl from "../images/hotel.jpg";
 import { Link } from "react-router-dom";
 
 function Hotelcard(props) {
+  let isAdmin = localStorage.getItem("userName") === "admin@gmail.com";
+  let hotelButton = null;
+  if (isAdmin) {
+    hotelButton = (
+      <Link class="btn btn-success" to={"/hoteloverview"} state={props.hotel}>
+        Room Maintainance
+      </Link>
+    );
+  } else {
+    hotelButton = (
+      <Link class="btn btn-dark" to={"/hoteloverview"} state={props.hotel}>
+        View Rates
+      </Link>
+    );
+  }
+
   return (
     <div class="container">
       <div
@@ -27,15 +43,7 @@ function Hotelcard(props) {
             </div>
 
             <div style={{ display: "block" }}>
-              <Link
-                class="btn btn-dark"
-                to={"/hoteloverview"}
-                state={props.hotel}
-              >
-                View Rates
-              </Link>
-
-              {/* <button class="btn btn-dark" onClick={() => window.location.href=`/hotels/${props.hotel.hotelName}`}>View Rates</button> */}
+              {hotelButton}
             </div>
           </div>
         </div>

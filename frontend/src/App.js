@@ -7,6 +7,7 @@ import Hoteloverview from "./components/Hoteloverview";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RoomOverview from "./components/RoomOverview";
 import Bookings from "./components/Bookings";
+import AllBookings from "./components/AllBookings";
 import Navbar from "./components/Navbar";
 import Logout from "./components/Logout";
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/hoteloverview" element={<Hoteloverview />} />
           <Route path="/roomoverview" element={<RoomOverview />} />
           <Route path="/bookings" element={<Bookings />} />
+          <Route path="/allbookings" element={<AllBookings />} />
         </Routes>
       </div>
     </Router>

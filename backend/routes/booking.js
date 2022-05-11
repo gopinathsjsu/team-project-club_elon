@@ -7,8 +7,9 @@ const singleRoom = require("../models/singleRoom.model");
 router.route("/createBooking").post((req, res) => {
   const roomName = req.body.room;
   const hotel = req.body.hotel;
-  const userId = "temp1";
+  const userName = req.body.userName;
   const amenities = req.body.amenities;
+  const amount = req.body.amount;
   // const bookingTime = req.body.bookingTime;
   // const amount = req.body.amount;
   
@@ -116,10 +117,10 @@ router.route("/createBooking").post((req, res) => {
                       console.log(roomId);
                       let startdate = startDate.month + "/" + startDate.day + "/" + "2022"
                       let enddate = endDate.month + "/" + endDate.day + "/" + "2022"
-                      let amenities = [{amenity:"parking", cost:10}, {amenity:"spa", cost:20}, {amenity:"gym", cost:30}]
-                      let ownerId = userId
+                      //let amenities = [{amenity:"parking", cost:10}, {amenity:"spa", cost:20}, {amenity:"gym", cost:30}]
+                      let ownerId = userName
                       let bookingTime = new Date().toLocaleString()
-                      let amount = 200
+                      //let amount = 200
                       const newBookingData = new bookingData({
                         roomId,
                         ownerId,

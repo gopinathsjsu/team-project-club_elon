@@ -53,24 +53,28 @@ function RoomOverview() {
     const room = roomData.roomName;
 
     console.log({ startDate, endDate, hotel, room });
-    let amenities = {};
+    let amenities = [];
     if (parking) {
-      amenities.parking = 10;
+      amenities.push({ amenity: "Parking", cost: 10 });
     }
     if (spa) {
-      amenities.spa = 20;
+      amenities.push({ amenity: "Spa", cost: 20 });
     }
     if (gym) {
+      amenities.push({ amenity: "Gym", cost: 30 });
       amenities.gym = 20;
     }
     if (breakFast) {
-      amenities.breakFast = 15;
+      amenities.push({ amenity: "Breakfast", cost: 15 });
     }
     if (meal) {
-      amenities.meal = 40;
+      amenities.push({ amenity: "Meal", cost: 40 });
     }
 
+    let userName = localStorage.getItem("userName");
+
     let data = {
+      userName,
       startDate,
       endDate,
       hotel,
@@ -142,7 +146,6 @@ function RoomOverview() {
             Daily Continental Breakfast &emsp;&emsp;$15
           </label>
           <br></br>
-
           <input
             type="checkbox"
             id="gym"
@@ -151,16 +154,15 @@ function RoomOverview() {
             onChange={(e) => {
               if (gym === null) {
                 setGym(e.target.value);
-                setTotalPrice(totalPrice + 20);
+                setTotalPrice(totalPrice + 30);
               } else {
                 setGym(null);
-                setTotalPrice(totalPrice - 20);
+                setTotalPrice(totalPrice - 30);
               }
             }}
           />
           &emsp;<label for="gym"> Gym &emsp;&emsp;$20</label>
           <br></br>
-
           <input
             type="checkbox"
             id="spa"
@@ -178,7 +180,6 @@ function RoomOverview() {
           />
           &emsp;<label for="spa"> Swimming Pool/Jacuzzi &emsp;&emsp;$20</label>
           <br></br>
-
           <input
             type="checkbox"
             id="parking"
@@ -196,14 +197,13 @@ function RoomOverview() {
           />
           &emsp;<label for="parking"> Daily Parking &emsp;&emsp;$10</label>
           <br></br>
-
           <input
             type="checkbox"
             id="allmeals"
             name="allmeals"
             value="allmeals"
             onChange={(e) => {
-              if (spa === null) {
+              if (meal === null) {
                 setMeal(e.target.value);
                 setTotalPrice(totalPrice + 40);
               } else {
@@ -215,7 +215,6 @@ function RoomOverview() {
           &emsp;<label for="allmeals"> All Meals &emsp;&emsp;$40</label>
           <br></br>
           <br></br>
-
           <h3>Total price:&emsp; ${totalPrice}</h3>
         </div>
         <button

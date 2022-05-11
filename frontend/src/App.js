@@ -6,6 +6,7 @@ import Register from "./components/Register";
 import Hoteloverview from "./components/Hoteloverview";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RoomOverview from "./components/RoomOverview";
+import Bookings from "./components/Bookings";
 import Navbar from "./components/Navbar";
 import Logout from "./components/Logout";
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/users/register" element={<Register />} />
           <Route path="/hoteloverview" element={<Hoteloverview />} />
           <Route path="/roomoverview" element={<RoomOverview />} />
+          <Route path="/bookings" element={<Bookings />} />
         </Routes>
       </div>
     </Router>

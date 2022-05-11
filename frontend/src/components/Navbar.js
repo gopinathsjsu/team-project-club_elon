@@ -25,7 +25,7 @@ function Navbar() {
     );
 
     <li class="nav-item">
-      <Link class="nav-link" to={"/bookings"}>
+      <Link class="nav-link" to={"/hotels"}>
         home
       </Link>
     </li>;
@@ -41,7 +41,7 @@ function Navbar() {
       </Link>
     );
     bookings = (
-      <Link class="nav-link" to={"#"}>
+      <Link class="nav-link" to={"/bookings"}>
         Bookings <span class="sr-only">(current)</span>
       </Link>
     );

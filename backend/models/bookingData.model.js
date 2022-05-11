@@ -8,16 +8,14 @@ const bookingDataSchema = new Schema({
     enddate: { type: String, required: true },
     amenities: [ {
         amenity: {
-            type: String,
-            required : true,
+            type: String
         },
         cost: {
-            type: Number,
-            required : true, 
+            type: Number
         }
 }],
     bookingTime: { type: String, required: true },
-    amount: { type: Number, required: true }
+    amount: { type: Number }
 },
 {
     timestamps: true

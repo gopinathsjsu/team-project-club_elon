@@ -8,7 +8,7 @@ function RoomOverview() {
   const room = location?.state;
   const [checkInDate, setCheckInDate] = useState([]);
   const [checkOutDate, setCheckOutDate] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(parseInt(room.roomPrice));
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const [breakFast, setBreakFast] = useState(null);
   const [gym, setGym] = useState(null);
@@ -87,10 +87,7 @@ function RoomOverview() {
       .post(process.env.REACT_APP_LOCALHOST + "/booking/createBooking", data)
       .then((res) => {
         if (res.data === "updated") {
-          alert("Booking Successful, redirecting to booking page in 5 seconds");
-          setInterval(() => {
-            setRedirectVar(navigate("../bookings", { replace: true }));
-          }, 5000);
+          setRedirectVar(navigate("../bookings", { replace: true }));
         } else if (res.status === 400) {
           alert("Booking Failed");
         } else {
@@ -98,33 +95,56 @@ function RoomOverview() {
         }
       });
   };
+
+  const setCheckOutDateAndCalculateDays = (e) => {
+    setCheckOutDate(e.target.value);
+    console.log(
+      "out: " +
+        e.target.value.split("-")[2] +
+        " in: " +
+        checkInDate.split("-")[2]
+    );
+    const numberOfdays =
+      e.target.value.split("-")[2] - checkInDate.split("-")[2];
+    console.log(numberOfdays);
+    setTotalPrice(numberOfdays * room.roomPrice);
+  };
   return (
     <div className="container m-3">
       {RedirectVar}
-      <div className="row offset-md-4">
+      <div
+        className="row offset-md-4"
+        style={{ border: "rgba(0,0,0,.125) solid 1px" }}
+      >
         <div className="col-md-8 offset-md-4">
           <h2> Type: {room.roomName}</h2>
           <h3>Price of room: ${room.roomPrice}</h3>
         </div>
-        <div className="col-md-8 offset-md-4">
-          <label>Check In Date</label>
+        <div className="col-md-8 offset-md-2">
+          <label>
+            <b>Check In Date: </b>
+          </label>
           <input
             type="date"
             placeholder="Check-in Date"
             min={new Date().toISOString().split("T")[0]}
             onChange={(e) => setCheckInDate(e.target.value)}
           ></input>
-          <label>Check Out Date</label>
+          <label>
+            <b>Check Out Date: </b>
+          </label>
           <input
             type="date"
             min={getCheckOutDate(checkInDate, 2)}
             max={getCheckOutDate(checkInDate, 7)}
             placeholder="Check-out Date"
-            onChange={(e) => setCheckOutDate(e.target.value)}
+            onChange={(e) => setCheckOutDateAndCalculateDays(e)}
+            // onChange={(e) => setCheckOutDateAndCalculateDays(e)}
+            // onClick={(e) => setCheckOutDateAndCalculateDays(e)}
           ></input>
         </div>
 
-        <div className="col-md-5 offset-md-2" style={{ marginTop: "40px" }}>
+        <div className="col-md-5 offset-md-3" style={{ marginTop: "40px" }}>
           <input
             type="checkbox"
             id="breakfast"
@@ -154,10 +174,10 @@ function RoomOverview() {
             onChange={(e) => {
               if (gym === null) {
                 setGym(e.target.value);
-                setTotalPrice(totalPrice + 30);
+                setTotalPrice(totalPrice + 20);
               } else {
                 setGym(null);
-                setTotalPrice(totalPrice - 30);
+                setTotalPrice(totalPrice - 20);
               }
             }}
           />

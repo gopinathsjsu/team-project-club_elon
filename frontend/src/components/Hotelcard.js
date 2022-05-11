@@ -5,12 +5,18 @@ import { Link } from "react-router-dom";
 function Hotelcard(props) {
   return (
     <div class="container">
-      <div class="row">
+      <div
+        class="row offset-0"
+        style={{
+          border: "rgba(0,0,0,.125) solid 1px",
+          padding: "10px",
+        }}
+      >
         <div class="col-md-4">
           <img src={hotelUrl} alt="Unavailable" style={{ width: "100%" }}></img>
         </div>
 
-        <div class="col-md-4" style={{ marginLeft: "50px", marginTop: "50px" }}>
+        <div class="col-md-4">
           <div>
             <div style={{ display: "inline-block" }}>
               <h2>{props.hotel.hotelName}</h2>
@@ -20,7 +26,7 @@ function Hotelcard(props) {
               </p>
             </div>
 
-            <div style={{ display: "inline-block", marginLeft: "100px" }}>
+            <div style={{ display: "block" }}>
               <Link
                 class="btn btn-dark"
                 to={"/hoteloverview"}

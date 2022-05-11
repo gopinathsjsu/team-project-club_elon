@@ -18,6 +18,17 @@ function Bookingcard(props) {
       });
   }, []);
 
+  const cancelBooking = (bookingId) => {
+    axios
+      .delete(process.env.REACT_APP_LOCALHOST + "/booking/cancelBooking", {
+        params: { bookingId: bookingId },
+      })
+      .then((response) => {
+        console.log(response.data);
+        props.setForce(!props.force);
+      });
+  };
+
   return (
     <div class="container">
       <div class="row">
@@ -59,6 +70,9 @@ function Bookingcard(props) {
                 type="button"
                 class="btn btn-primary"
                 style={{ marginLeft: "70px" }}
+                onClick={() => {
+                  cancelBooking(props.booking._id);
+                }}
               >
                 Cancel Reservation
               </button>

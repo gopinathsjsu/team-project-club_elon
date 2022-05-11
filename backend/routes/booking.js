@@ -149,4 +149,15 @@ router.route("/createBooking").post((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/cancelBooking").delete((req, res) => {
+  const bookingId = req.query.bookingId;
+  bookingData.deleteOne({ _id: bookingId }, (err, result) => {
+    if (err) {
+      res.status(400).json("Error: " + err);
+    } else {
+      res.send("Deleted");
+    }
+  });
+});
+
 module.exports = router;

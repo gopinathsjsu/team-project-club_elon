@@ -16,7 +16,7 @@ function Bookings() {
     }
     axios
       .get(process.env.REACT_APP_LOCALHOST + "/users/mybookings", {
-        params: { username: userName },
+        params: { ownerId: userName },
       })
       .then((response) => {
         setbookings(

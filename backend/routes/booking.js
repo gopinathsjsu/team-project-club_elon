@@ -51,7 +51,7 @@ router.route("/createBooking").post((req, res) => {
       if (!result) res.status(400).send({ message: "Room Not Found" });
       else {
         let roomBooked = false
-        console.log(result.length);
+        console.log("Here:  ", result.length);
         // for (let index = 0; index < array.length; index++) {
         //   const element = array[index];
           

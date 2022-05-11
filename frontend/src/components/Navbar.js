@@ -40,11 +40,20 @@ function Navbar() {
         Logout <span class="sr-only">(current)</span>
       </Link>
     );
-    bookings = (
-      <Link class="nav-link" to={"/bookings"}>
-        Bookings <span class="sr-only">(current)</span>
-      </Link>
-    );
+
+    if(localStorage.getItem("userName") === "admin@gmail.com") {
+      bookings = (
+        <Link class="nav-link" to={"/allbookings"}>
+          All user's Bookings <span class="sr-only">(current)</span>
+        </Link>
+      );
+    } else {
+      bookings = (
+        <Link class="nav-link" to={"/bookings"}>
+          Bookings <span class="sr-only">(current)</span>
+        </Link>
+      );
+    }
   }
   return (
     <div>

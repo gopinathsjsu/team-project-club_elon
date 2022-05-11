@@ -17,6 +17,22 @@ function RoomOverview() {
   const martinluther = new Date("01/17/2022");
   const independence = new Date("07/04/2022");
 
+  let isAdmin = localStorage.getItem("userName") === "admin@gmail.com";
+  let DateIn = "Check In Date:";
+  let DateOut = "Check In Date:";
+  let buttonActionText = "Book now";
+  let buttonColor = "black";
+
+  let displayAmenities = "block";
+  if (isAdmin) {
+    displayAmenities = "none";
+    DateIn = "Make Unavailable from:";
+    DateOut = " to:";
+    buttonActionText = "Make room Unavailable";
+    buttonColor = "darkred";
+  } else {
+  }
+
   const listOfHolidays = [
     thanksgiving,
     halloween,
@@ -74,47 +90,69 @@ function RoomOverview() {
     const room = roomData.roomName;
 
     console.log({ startDate, endDate, hotel, room });
-    let amenities = [];
-    if (parking) {
-      amenities.push({ amenity: "Parking", cost: 10 });
-    }
-    if (spa) {
-      amenities.push({ amenity: "Spa", cost: 20 });
-    }
-    if (gym) {
-      amenities.push({ amenity: "Gym", cost: 30 });
-      amenities.gym = 20;
-    }
-    if (breakFast) {
-      amenities.push({ amenity: "Breakfast", cost: 15 });
-    }
-    if (meal) {
-      amenities.push({ amenity: "Meal", cost: 40 });
-    }
 
-    let userName = localStorage.getItem("userName");
+    if (localStorage.getItem("userName") === "admin@gmail.com") {
+      let data = {
+        startDate,
+        endDate,
+        hotel,
+        room,
+      };
 
-    let data = {
-      userName,
-      startDate,
-      endDate,
-      hotel,
-      room,
-      amenities,
-      amount: totalPrice,
-    };
+      axios
+        .post(process.env.REACT_APP_LOCALHOST + "/admin/createBooking", data)
+        .then((res) => {
+          if (res.data === "updated") {
+            setRedirectVar(navigate("../bookings", { replace: true }));
+          } else if (res.status === 400) {
+            alert("Booking Failed");
+          } else {
+            alert("Booking Failed");
+          }
+        });
+    } else {
+      let amenities = [];
+      if (parking) {
+        amenities.push({ amenity: "Parking", cost: 10 });
+      }
+      if (spa) {
+        amenities.push({ amenity: "Spa", cost: 20 });
+      }
+      if (gym) {
+        amenities.push({ amenity: "Gym", cost: 30 });
+        amenities.gym = 20;
+      }
+      if (breakFast) {
+        amenities.push({ amenity: "Breakfast", cost: 15 });
+      }
+      if (meal) {
+        amenities.push({ amenity: "Meal", cost: 40 });
+      }
 
-    axios
-      .post(process.env.REACT_APP_LOCALHOST + "/booking/createBooking", data)
-      .then((res) => {
-        if (res.data === "updated") {
-          setRedirectVar(navigate("../bookings", { replace: true }));
-        } else if (res.status === 400) {
-          alert("Booking Failed");
-        } else {
-          alert("Booking Failed");
-        }
-      });
+      let userName = localStorage.getItem("userName");
+
+      let data = {
+        userName,
+        startDate,
+        endDate,
+        hotel,
+        room,
+        amenities,
+        amount: totalPrice,
+      };
+
+      axios
+        .post(process.env.REACT_APP_LOCALHOST + "/booking/createBooking", data)
+        .then((res) => {
+          if (res.data === "updated") {
+            setRedirectVar(navigate("../bookings", { replace: true }));
+          } else if (res.status === 400) {
+            alert("Booking Failed");
+          } else {
+            alert("Booking Failed");
+          }
+        });
+    }
   };
 
   const setCheckOutDateAndCalculateDays = (e) => {
@@ -193,7 +231,7 @@ function RoomOverview() {
         </div>
         <div className="col-md-8 offset-md-2">
           <label>
-            <b>Check In Date: </b>
+            <b>{DateIn} </b>
           </label>
           <input
             type="date"
@@ -201,8 +239,9 @@ function RoomOverview() {
             min={new Date().toISOString().split("T")[0]}
             onChange={(e) => setCheckInDate(e.target.value)}
           ></input>
+          &emsp;
           <label>
-            <b>Check Out Date: </b>
+            <b>{DateOut} </b>
           </label>
           <input
             type="date"
@@ -215,7 +254,10 @@ function RoomOverview() {
           ></input>
         </div>
 
-        <div className="col-md-5 offset-md-3" style={{ marginTop: "40px" }}>
+        <div
+          className="col-md-5 offset-md-3"
+          style={{ marginTop: "40px", display: displayAmenities }}
+        >
           <input
             type="checkbox"
             id="breakfast"
@@ -321,9 +363,9 @@ function RoomOverview() {
         <button
           className="btn btn-dark"
           onClick={() => checkBooking(checkInDate, checkOutDate, room)}
-          style={{ marginTop: "30px" }}
+          style={{ marginTop: "30px", backgroundColor: buttonColor }}
         >
-          Book Now
+          {buttonActionText}
         </button>
       </div>
     </div>

@@ -3,6 +3,7 @@ const ApiError = require("../errors/ApiError");
 let User = require("../models/user.model");
 const bookingData = require("../models/bookingData.model");
 const bcrypt = require("bcrypt");
+const singleroom = require("../models/singleRoom.model");
 
 router.route("/login").post((req, res) => {
   const username = req.body.username;
@@ -65,11 +66,12 @@ router.route("/register").post(async (req, res, next) => {
   const password = await bcrypt.hash(reqPassword, salt);
   // console.log(typeof hashPassword);
   // const age = req.body.age;
+  let rewards = 0
   if (!username) {
     next(ApiError.badRequest("username cannot be empty"));
     return;
   }
-  const newUser = new User({ username, password });
+  const newUser = new User({ username, password, rewards});
 
   newUser
     .save()
@@ -90,4 +92,44 @@ router.route("/mybookings").get((req, res) => {
     })
     .catch((err) => res.status(400).json("Error: " + err));
 });
+
+router.route("/updateRewards").post((req, res) =>{
+  const username = req.body.username;
+  const newRewards = req.body.rewards;
+  User
+  .updateOne(
+    {
+      username: username,
+    },
+    {
+      $set: {
+        rewards: newRewards,
+      },
+    }
+  ).then((result) => {
+    res.send("Rewards Updated")
+  }).catch((err) => {
+    res.send(err)
+  });
+})
+
+router.route("/getRewards").get((req, res) =>{
+  const username = req.body.username;
+
+  User.find({
+    username: username,
+  })
+    .then(async (user) => {
+      if (user.length == 0) {
+        {
+          res.status(400).send("Wrong username password combination!");
+        }
+      } else if (user) {
+        console.log(user);
+        res.status(200).send({"rewards": user[0].rewards})
+      }
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+})
+
 module.exports = router;

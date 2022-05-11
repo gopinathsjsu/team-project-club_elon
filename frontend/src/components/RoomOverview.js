@@ -9,6 +9,27 @@ function RoomOverview() {
   const [checkInDate, setCheckInDate] = useState([]);
   const [checkOutDate, setCheckOutDate] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isWeekend, setIsWeekend] = useState(false);
+  const [isHoliday, setIsHoliday] = useState(false);
+  const christmas = new Date("12/25/2022");
+  const thanksgiving = new Date("11/22/2022");
+  const halloween = new Date("10/31/2022");
+  const martinluther = new Date("01/17/2022");
+  const independence = new Date("07/04/2022");
+
+  const listOfHolidays = [
+    thanksgiving,
+    halloween,
+    martinluther,
+    independence,
+    christmas,
+    new Date("12/26/2022"),
+    new Date("12/27/2022"),
+    new Date("12/28/2022"),
+    new Date("12/29/2022"),
+    new Date("12/30/2022"),
+    new Date("12/31/2022"),
+  ];
 
   const [breakFast, setBreakFast] = useState(null);
   const [gym, setGym] = useState(null);
@@ -98,17 +119,67 @@ function RoomOverview() {
 
   const setCheckOutDateAndCalculateDays = (e) => {
     setCheckOutDate(e.target.value);
-    console.log(
-      "out: " +
-        e.target.value.split("-")[2] +
-        " in: " +
-        checkInDate.split("-")[2]
-    );
-    const numberOfdays =
-      e.target.value.split("-")[2] - checkInDate.split("-")[2];
-    console.log(numberOfdays);
-    setTotalPrice(numberOfdays * room.roomPrice);
+
+    const out = new Date(e.target.value);
+    const ind = new Date(checkInDate);
+    out.setDate(out.getDate() + 1);
+    ind.setDate(ind.getDate() + 1);
+    console.log("out: " + out.getDate() + " in: " + ind.getDate());
+
+    const t = out.getTime() - ind.getTime();
+    let days = Math.floor(t / (1000 * 60 * 60 * 24));
+    let holidays = 0;
+    let weekends = 0;
+
+    for (let i = ind; i < out; i.setDate(i.getDate() + 1)) {
+      console.log("holiday: " + checkHoliday(i));
+      if (checkHoliday(i)) {
+        holidays = holidays + 3;
+        setIsHoliday(true);
+        days = days - 1;
+      } else if (checkWeekend(i)) {
+        setIsWeekend(true);
+        days = days - 1;
+        weekends = weekends + 2;
+      }
+    }
+
+    console.log("days: " + days);
+    console.log("holidays: " + holidays);
+    console.log("weekends: " + weekends);
+    days = days + holidays + weekends;
+    if (holidays === 0) {
+      setIsHoliday(false);
+    }
+    if (weekends === 0) {
+      setIsWeekend(false);
+    }
+    setTotalPrice(days * room.roomPrice);
   };
+
+  const checkWeekend = (date) => {
+    let day = date.getDay();
+    if (day === 0 || day === 6) {
+      return true;
+    }
+    return false;
+  };
+
+  const checkHoliday = (date) => {
+    let day = date.getDate();
+    let month = date.getMonth();
+
+    for (let i = 0; i < listOfHolidays.length; i++) {
+      if (
+        day === listOfHolidays[i].getDate() &&
+        month === listOfHolidays[i].getMonth()
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <div className="container m-3">
       {RedirectVar}
@@ -236,6 +307,16 @@ function RoomOverview() {
           <br></br>
           <br></br>
           <h3>Total price:&emsp; ${totalPrice}</h3>
+          <h5 style={{ fontStyle: "italic", color: "red" }}>
+            {isWeekend
+              ? "Cost for Weekends are 2X: $" + room.roomPrice * 2
+              : ""}
+          </h5>
+          <h5 style={{ fontStyle: "italic", color: "red" }}>
+            {isHoliday
+              ? "Cost for Holidays are 3X: $" + room.roomPrice * 3
+              : ""}
+          </h5>
         </div>
         <button
           className="btn btn-dark"

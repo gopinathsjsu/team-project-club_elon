@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Bookings() {
   const [bookings, setbookings] = useState([]);
   const [RedirectVar, setRedirectVar] = useState(null);
+  const [force, setForce] = useState(false);
   let navigate = useNavigate();
   let userName = localStorage.getItem("userName");
 
@@ -27,14 +28,18 @@ function Bookings() {
                   id="cardItem"
                   className="col-xs-4"
                 >
-                  <Bookingcard booking={booking} />
+                  <Bookingcard
+                    booking={booking}
+                    force={force}
+                    setForce={setForce}
+                  />
                 </div>
               ))}
             </div>
           </div>
         );
       });
-  }, []);
+  }, [force]);
 
   return (
     <div class="home">

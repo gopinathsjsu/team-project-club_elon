@@ -142,7 +142,6 @@ function RoomOverview() {
             Daily Continental Breakfast &emsp;&emsp;$15
           </label>
           <br></br>
-
           <input
             type="checkbox"
             id="gym"
@@ -160,7 +159,6 @@ function RoomOverview() {
           />
           &emsp;<label for="gym"> Gym &emsp;&emsp;$20</label>
           <br></br>
-
           <input
             type="checkbox"
             id="spa"
@@ -178,7 +176,6 @@ function RoomOverview() {
           />
           &emsp;<label for="spa"> Swimming Pool/Jacuzzi &emsp;&emsp;$20</label>
           <br></br>
-
           <input
             type="checkbox"
             id="parking"
@@ -196,14 +193,13 @@ function RoomOverview() {
           />
           &emsp;<label for="parking"> Daily Parking &emsp;&emsp;$10</label>
           <br></br>
-
           <input
             type="checkbox"
             id="allmeals"
             name="allmeals"
             value="allmeals"
             onChange={(e) => {
-              if (spa === null) {
+              if (meal === null) {
                 setMeal(e.target.value);
                 setTotalPrice(totalPrice + 40);
               } else {
@@ -215,7 +211,6 @@ function RoomOverview() {
           &emsp;<label for="allmeals"> All Meals &emsp;&emsp;$40</label>
           <br></br>
           <br></br>
-
           <h3>Total price:&emsp; ${totalPrice}</h3>
         </div>
         <button

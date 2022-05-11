@@ -1,4 +1,6 @@
-const router = require('express').Router();
+const express = require("express");
+const router = express.Router();
+
 
 let amenitiesList = [
     {
@@ -6,7 +8,7 @@ let amenitiesList = [
         "price" :10
     },
     {
-        "amenity" : "Spa", 
+        "amenity" : "spa", 
         "price" : 20
     },
     {
@@ -22,3 +24,5 @@ let amenitiesList = [
 router.route("/").get((req,res) => {
     res.send(amenitiesList);
 })
+
+module.exports = router;

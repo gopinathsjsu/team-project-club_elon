@@ -210,7 +210,7 @@ router.route("/createBooking").post((req, res) => {
   });
 
 
-router.route('showbookings').get((req,res) => {
+router.route('/showbookings').get((req,res) => {
     bookingData.find()
     .then(bookings => {
       if(!bookings)

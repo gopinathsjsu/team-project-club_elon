@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const ApiError = require('../errors/ApiError');
 let User = require('../models/user.model');
+const bookingData = require("../models/bookingData.model");
 const bcrypt = require('bcrypt');
 
 
@@ -77,4 +78,19 @@ router.route('/register').post( async (req, res, next) => {
 
 );
 
+router.route('/mybookings').get((req,res) => {
+  const ownerId = req.body.ownerId;
+  bookingData.find(
+    {
+      "ownerId" : ownerId
+    }
+  )
+  .then(bookings => {
+    if(!bookings)
+      res.status(400).send({ message : "Hotel Not Found"})
+    else
+    res.json(bookings)
+  })
+  .catch(err => res.status(400).json('Error: ' + err));
+})
 module.exports = router;

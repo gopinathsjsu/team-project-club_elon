@@ -79,9 +79,9 @@ router.route('/register').post( async (req, res, next) => {
 );
 
 router.route('/mybookings').get((req,res) => {
-  const username = req.body.username;
+  const username = req.query.username;
   bookingData.find({
-    "ownerid" : username
+    "ownerId" : username
   })
     .then(bookings => {
       if(!bookings)

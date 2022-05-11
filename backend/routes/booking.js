@@ -12,8 +12,7 @@ router.route("/createBooking").post((req, res) => {
   const amount = req.body.amount;
   // const bookingTime = req.body.bookingTime;
   // const amount = req.body.amount;
-  
-  
+
   //get date in javascript Date format and fill month and day from that date
   //first find difference between dates then move to booking if diff <= 7 days
 
@@ -27,8 +26,7 @@ router.route("/createBooking").post((req, res) => {
     day: req.body.endDate.day,
   };
 
-  if(startDate.month != endDate.month){
-
+  if (startDate.month != endDate.month) {
   }
 
   // startDate.month = req.body.startDate.day;
@@ -45,30 +43,28 @@ router.route("/createBooking").post((req, res) => {
     .then((result) => {
       if (!result) res.status(400).send({ message: "Room Not Found" });
       else {
-        let roomBooked = false
+        let roomBooked = false;
         console.log(result.length);
         // for (let index = 0; index < array.length; index++) {
         //   const element = array[index];
-          
+
         // }
         result.forEach((currRoom) => {
-          if(!roomBooked){
+          if (!roomBooked) {
             console.log(roomBooked);
             console.log(currRoom);
             //const currRoom = result[0];
-            if(startDate.day > endDate.day){
-              
-            }
-            else{
+            if (startDate.day > endDate.day) {
+            } else {
               const bookingsforCurrentMonth =
                 currRoom.bookings[startDate.month];
               // const endDateArrayforCurrentMonth = currRoom.endFrom[endDate.month -1].sort()
-    
+
               // console.log(startDateArrayforCurrentMonth);
               // console.log(endDateArrayforCurrentMonth);
-    
+
               let flag = 0;
-  
+
               for (let i = startDate.day; i <= endDate.day; i++) {
                 // console.log(i);
                 if (bookingsforCurrentMonth.includes(i)) {
@@ -81,9 +77,8 @@ router.route("/createBooking").post((req, res) => {
                 // roomBooked = true
                 // res.send("Cannot book");
               } else {
-                
                 console.log("can book");
-                roomBooked = true
+                roomBooked = true;
                 for (let i = startDate.day; i <= endDate.day; i++) {
                   //   console.log(typeof parseInt(i);
                   bookingsforCurrentMonth.push(parseInt(i));
@@ -104,22 +99,21 @@ router.route("/createBooking").post((req, res) => {
                     }
                   )
                   .then((responseBooking) => {
-                    if (!responseBooking) 
-                    {
+                    if (!responseBooking) {
                       res.status(400).send({ message: "Not found" });
-                      
-                    }
-                    else {
+                    } else {
                       // roomBooked = true
                       // res.send("updated");
-                      let roomId = currRoom._id
+                      let roomId = currRoom._id;
                       console.log("_________________________________________");
                       console.log(roomId);
-                      let startdate = startDate.month + "/" + startDate.day + "/" + "2022"
-                      let enddate = endDate.month + "/" + endDate.day + "/" + "2022"
+                      let startdate =
+                        startDate.month + "/" + startDate.day + "/" + "2022";
+                      let enddate =
+                        endDate.month + "/" + endDate.day + "/" + "2022";
                       //let amenities = [{amenity:"parking", cost:10}, {amenity:"spa", cost:20}, {amenity:"gym", cost:30}]
-                      let ownerId = userName
-                      let bookingTime = new Date().toLocaleString()
+                      let ownerId = userName;
+                      let bookingTime = new Date().toLocaleString();
                       //let amount = 200
                       const newBookingData = new bookingData({
                         roomId,
@@ -130,28 +124,25 @@ router.route("/createBooking").post((req, res) => {
                         bookingTime,
                         amount,
                       });
-                      newBookingData.save()
-                      .then(() => res.send("updated"))
-                      .catch((err) => 
-                        {
-                          console.log(err)
-                          res.status(400).json('Error: ' + err);
-  
-                        })
+                      newBookingData
+                        .save()
+                        .then(() => res.send("updated"))
+                        .catch((err) => {
+                          console.log(err);
+                          res.status(400).json("Error: " + err);
+                        });
                     }
                   })
-                  .catch((err2) => 
-                        {
-                          console.log(err2)
-                          res.status(400).json('Error: ' + err2);
-  
-                        })
+                  .catch((err2) => {
+                    console.log(err2);
+                    res.status(400).json("Error: " + err2);
+                  });
               }
             }
-            }
+          }
         });
-        if(!roomBooked){
-          res.status(400).send("Cannot Book")
+        if (!roomBooked) {
+          res.status(400).send("Cannot Book");
         }
       }
     })

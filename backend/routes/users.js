@@ -96,15 +96,14 @@ router.route("/mybookings").get((req, res) => {
 router.route("/updateRewards").post((req, res) => {
   const username = req.body.username;
   const newRewards = req.body.rewards;
-  console.log(newRewards);
+  console.log("rewards::::::::::::::::::::::::::::" + newRewards);
   User.updateOne(
     {
       username: username,
     },
     {
-      $set: {
-        rewards: newRewards,
-      },
+      $inc: { rewards: newRewards },
+
     }
   )
     .then((result) => {

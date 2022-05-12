@@ -18,10 +18,14 @@ function Bookingcard(props) {
       });
   }, []);
 
-  const cancelBooking = (bookingId) => {
+  const cancelBooking = (bookingId, _id) => {
     axios
       .delete(process.env.REACT_APP_LOCALHOST + "/booking/cancelBooking", {
-        params: { bookingId: bookingId },
+        params: {
+          userName: localStorage.getItem("userName"),
+          previousRoomID: bookingId,
+          bookingId: _id,
+        },
       })
       .then((response) => {
         console.log(response.data);
@@ -71,7 +75,7 @@ function Bookingcard(props) {
                 class="btn btn-primary"
                 style={{ marginLeft: "70px" }}
                 onClick={() => {
-                  cancelBooking(props.booking._id);
+                  cancelBooking(props.booking.roomId, props.booking._id);
                 }}
               >
                 Cancel Reservation

@@ -9,6 +9,7 @@ function Logout() {
 
   useEffect(() => {
       setRedirect(navigate("../users/login", { replace: true }));
+      window.location.reload();
   }, []);
 
   return <div>{redirect}</div>;

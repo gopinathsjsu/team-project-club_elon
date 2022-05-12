@@ -29,7 +29,7 @@ function Hotelcard(props) {
         }}
       >
         <div class="col-md-4">
-          <img src={hotelUrl} alt="Unavailable" style={{ width: "100%" }}></img>
+          <img src={props.images[props.ind]} alt="Unavailable" style={{ width: "100%" }}></img>
         </div>
 
         <div class="col-md-4">

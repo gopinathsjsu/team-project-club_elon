@@ -588,7 +588,7 @@ router.route("/cancelBooking").delete((req, res) => {
   userBookings
     .findOne({
       roomId: previousRoomID,
-      ownerId: "chokshiroshan",
+      ownerId: userName,
     })
     .then((result) => {
       console.log(result);

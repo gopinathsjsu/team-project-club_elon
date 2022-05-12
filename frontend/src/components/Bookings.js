@@ -39,7 +39,7 @@ function Bookings() {
           </div>
         );
       });
-  }, [force]);
+  }, []);
 
   return (
     <div class="home">

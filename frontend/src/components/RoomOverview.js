@@ -11,6 +11,9 @@ function RoomOverview() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [isWeekend, setIsWeekend] = useState(false);
   const [isHoliday, setIsHoliday] = useState(false);
+  const [isBooked, setIsBooked] = useState(false);
+  const [useReward, setUseReward] = useState(false);
+  const [rewards, setRewards] = useState(0);
   const christmas = new Date("12/25/2022");
   const thanksgiving = new Date("11/22/2022");
   const halloween = new Date("10/31/2022");
@@ -56,6 +59,103 @@ function RoomOverview() {
   const [RedirectVar, setRedirectVar] = useState(null);
   let navigate = useNavigate();
 
+  const finalBook = (
+    <button
+      className="btn btn-dark"
+      onClick={() => checkBooking(checkInDate, checkOutDate, props)}
+      style={{ marginTop: "30px", backgroundColor: buttonColor }}
+    >
+      {buttonActionText}
+    </button>
+  );
+
+  const book = (
+    <button
+      className="btn btn-dark"
+      onClick={() => setIsBooked(true)}
+      style={{ marginTop: "30px", backgroundColor: buttonColor }}
+    >
+      {buttonActionText}
+    </button>
+  );
+
+  const rewardDiv = (
+    <div className="row">
+      <div
+        className="col-md-6 offset-3 d-flex justify-content-center"
+        style={{ border: "solid" }}
+      >
+        <h3>
+          <span>Use Reward?</span>
+          <span style={{ display: "block" }}>
+            <button className="btn btn-dark" onClick={() => setUseReward(true)}>
+              Yes
+            </button>
+            <button
+              className="btn btn-dark"
+              onClick={() => checkBooking(checkInDate, checkOutDate, props, 0)}
+              style={{ marginLeft: "60px" }}
+            >
+              No
+            </button>
+          </span>
+        </h3>
+      </div>
+    </div>
+  );
+
+  const selectReward = (
+    <div className="row">
+      <div
+        className="col-md-6 offset-3 d-flex justify-content-center"
+        style={{ border: "solid" }}
+      >
+        <h3>
+          <span>Select Reward:</span>
+          <span style={{ display: "block" }}>
+            <input
+              type="radio"
+              name="reward"
+              value="10"
+              onClick={() =>
+                checkBooking(
+                  checkInDate,
+                  checkOutDate,
+                  props,
+                  Math.floor(rewards / 10)
+                )
+              }
+            />
+            <span>10%</span>
+            <input
+              type="radio"
+              name="reward"
+              value="50"
+              onClick={() =>
+                checkBooking(
+                  checkInDate,
+                  checkOutDate,
+                  props,
+                  Math.floor(rewards / 2)
+                )
+              }
+            />
+            <span>50%</span>
+            <input
+              type="radio"
+              name="reward"
+              value="100"
+              onClick={() =>
+                checkBooking(checkInDate, checkOutDate, props, rewards)
+              }
+            />
+            <span>100%</span>
+          </span>
+        </h3>
+      </div>
+    </div>
+  );
+
   console.log(props.room);
   const getCheckOutDate = (checkInDate, numberOfdays) => {
     console.log(checkInDate);
@@ -72,9 +172,10 @@ function RoomOverview() {
     console.log([year, month, day].join("-"));
     return [year, month, day].join("-");
   };
-  const checkBooking = (checkInDate, checkOutDate, roomData) => {
+  const checkBooking = (checkInDate, checkOutDate, roomData, r) => {
     let sdate = new Date(checkInDate);
     let edate = new Date(checkOutDate);
+    console.log("rewards amount: " + r);
 
     const startDate = {
       month: sdate.getMonth() + 1,
@@ -152,24 +253,33 @@ function RoomOverview() {
         .post(process.env.REACT_APP_LOCALHOST + "/booking/createBooking", data)
         .then((res) => {
           if (res.data === "updated") {
-            updateRewards();
+            updateRewards(r);
             setRedirectVar(navigate("../bookings", { replace: true }));
           } else {
             alert("Booking Failed");
           }
         })
-        .catch(function (error) {
-          alert("Room is unavailable. We apologies for the inconvinience.");
+        .catch((err) => {
+          console.log(err);
+          alert("Booking Failed for this dates! \nPlease select other dates.");
         });
     }
   };
 
-  const updateRewards = () => {
+  const updateRewards = (r) => {
     let userName = localStorage.getItem("userName");
-    let data = {
-      username: userName,
-      rewards: Math.floor(totalPrice / 10),
-    };
+    let data;
+    if (r === 0) {
+      data = {
+        username: userName,
+        rewards: Math.floor(totalPrice / 10),
+      };
+    } else {
+      data = {
+        username: userName,
+        rewards: r - rewards,
+      };
+    }
     axios
       .post(process.env.REACT_APP_LOCALHOST + "/users/updateRewards", data)
       .then((res) => {
@@ -243,6 +353,18 @@ function RoomOverview() {
     }
     return false;
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("userName")) {
+      axios
+        .get(process.env.REACT_APP_LOCALHOST + "/users/getRewards", {
+          params: { username: localStorage.getItem("userName") },
+        })
+        .then((response) => {
+          setRewards(response.data.rewards);
+        });
+    }
+  }, []);
 
   return (
     <div className="container m-3">
@@ -386,13 +508,7 @@ function RoomOverview() {
               : ""}
           </h5>
         </div>
-        <button
-          className="btn btn-dark"
-          onClick={() => checkBooking(checkInDate, checkOutDate, props)}
-          style={{ marginTop: "30px", backgroundColor: buttonColor }}
-        >
-          {buttonActionText}
-        </button>
+        {useReward ? selectReward : isBooked ? rewardDiv : book}
       </div>
     </div>
   );

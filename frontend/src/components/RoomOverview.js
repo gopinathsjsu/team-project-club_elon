@@ -254,6 +254,14 @@ function RoomOverview() {
         amount: totalPrice,
       };
 
+      if (r > totalPrice) {
+        setTotalPrice(0);
+        data.amount = 0;
+      } else {
+        setTotalPrice(totalPrice - r);
+        data.amount = totalPrice - r;
+      }
+
       axios
         .post(process.env.REACT_APP_LOCALHOST + "/booking/createBooking", data)
         .then((res) => {
@@ -280,10 +288,17 @@ function RoomOverview() {
         rewards: Math.floor(totalPrice / 10),
       };
     } else {
-      data = {
-        username: userName,
-        rewards: r - rewards,
-      };
+      if (r > totalPrice) {
+        data = {
+          username: userName,
+          rewards: -totalPrice,
+        };
+      } else {
+        data = {
+          username: userName,
+          rewards: -r,
+        };
+      }
     }
     axios
       .post(process.env.REACT_APP_LOCALHOST + "/users/updateRewards", data)

@@ -508,7 +508,13 @@ function RoomOverview() {
               : ""}
           </h5>
         </div>
-        {useReward ? selectReward : isBooked ? rewardDiv : book}
+        {isAdmin
+          ? finalBook
+          : useReward
+          ? selectReward
+          : isBooked
+          ? rewardDiv
+          : book}
       </div>
     </div>
   );

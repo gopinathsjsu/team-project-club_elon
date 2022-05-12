@@ -10,6 +10,7 @@ function Navbar() {
   let logout = null;
   let bookings = null;
   let currMaintainanceRooms = null;
+  let rewardsSection = null;
   const [rewards, setrewards] = useState(0);
 
   if (!localStorage.getItem("userName")) {
@@ -57,6 +58,12 @@ function Navbar() {
         </Link>
       );
     } else {
+      rewardsSection = (
+        <div class="navbar-nav" style={{ color: "white" }}>
+          Reward Points: <span style={{ color: "red" }}> {rewards}</span>
+        </div>
+      );
+
       bookings = (
         <Link class="nav-link" to={"/bookings"}>
           Bookings <span class="sr-only">(current)</span>
@@ -110,19 +117,17 @@ function Navbar() {
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="navbar-nav" style={{ color: "white" }}>
-            Reward Points: <span style={{ color: "red" }}> {rewards}</span>
-          </div>
+          {rewardsSection}
 
           <div
             class="collapse navbar-collapse offset-6"
             id="navbarSupportedContent"
           >
             <ul class="navbar-nav mr-auto">
-            {home}
-              
+              {home}
+
               {currMaintainanceRooms}
-              
+
               {register}
               {login}
               {bookings}

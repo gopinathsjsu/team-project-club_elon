@@ -87,11 +87,11 @@ function RoomOverview() {
     };
 
     console.log(props);
-    
+
     const hotel = props.hotelName;
     const room = props.room.roomName;
 
-    console.log(hotel, "    shdbfhjbjdfhsbjhfbsk ", room)
+    console.log(hotel, "    shdbfhjbjdfhsbjhfbsk ", room);
     console.log({ startDate, endDate, hotel, room });
 
     if (localStorage.getItem("userName") === "admin@gmail.com") {
@@ -148,6 +148,7 @@ function RoomOverview() {
         .post(process.env.REACT_APP_LOCALHOST + "/booking/createBooking", data)
         .then((res) => {
           if (res.data === "updated") {
+            updateRewards();
             setRedirectVar(navigate("../bookings", { replace: true }));
           } else if (res.status === 400) {
             alert("Booking Failed");
@@ -156,6 +157,23 @@ function RoomOverview() {
           }
         });
     }
+  };
+
+  const updateRewards = () => {
+    let userName = localStorage.getItem("userName");
+    let data = {
+      userName,
+      rewards: Math.floor(totalPrice / 10),
+    };
+    axios
+      .post(process.env.REACT_APP_LOCALHOST + "/users/updateRewards", data)
+      .then((res) => {
+        if (res.data === "updated") {
+          console.log("updated");
+        } else {
+          console.log("failed");
+        }
+      });
   };
 
   const setCheckOutDateAndCalculateDays = (e) => {
@@ -359,7 +377,7 @@ function RoomOverview() {
           </h5>
           <h5 style={{ fontStyle: "italic", color: "red" }}>
             {isHoliday
-              ? "Cost for Holidays are 3X: $" +props.room.roomPrice * 3
+              ? "Cost for Holidays are 3X: $" + props.room.roomPrice * 3
               : ""}
           </h5>
         </div>

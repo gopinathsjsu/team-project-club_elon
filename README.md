@@ -1,22 +1,32 @@
 # Team Project - Club Elon
 
 ## Team members:
-## 1. Ruturaj Nawale
-## 2. Roshan Chokshi
-## 3. Yaduvendra Singh
-## 4. Chandra Pavan Reddy
+- Ruturaj Nawale
+- Roshan Chokshi
+- Yaduvendra Singh
+- Chandra Pavan Reddy
 
 ## Contributions:
-## Ruturaj - Frontend
-## Roshan - Frontend
-## Yaduvendra - Backend and AWS
-## Chandra - Backend
+- Ruturaj - Frontend (Hotel, Login, Signup, Admin pages)
+- Roshan - Frontend (Rooms page, Customer Loyalty, Seasonal Pricing, Rewards)
+- Yaduvendra - Backend and AWS Deployment (Booking, Hotel APIs, DB Design)
+- Chandra - Backend (Login, Signup, Admin APIs)
 
 ## Technology Requirements:
-## Javascript
-## MongoDB
-## React
-## NodeJS
+- CSS, HTML
+- MongoDB
+- React
+- NodeJS
 
-## Node package installation command to download node_modules:
-### npm install
+## Link to the team's GitHub repo:
+- https://github.com/gopinathsjsu/team-project-club_elon
+
+## Link to the team's Project Journal (on GitHub)
+- https://github.com/gopinathsjsu/team-project-club_elon/blob/main/journal/journal.md
+
+## Link to the team's Project Board (on GitHub)
+- https://github.com/gopinathsjsu/team-project-club_elon/projects/1
+
+## Link to the team's Google Sprint Task Sheet
+- https://docs.google.com/spreadsheets/d/1phWNbSikkfqJ3_WU8SjV5_WpeZODUOclKVYyijLYNZc/edit?usp=sharing
+

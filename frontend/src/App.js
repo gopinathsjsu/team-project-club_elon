@@ -10,6 +10,7 @@ import Bookings from "./components/Bookings";
 import AllBookings from "./components/AllBookings";
 import Navbar from "./components/Navbar";
 import Logout from "./components/Logout";
+import MaintanceRooms from "./components/MaintainanceRooms.js";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/roomoverview" element={<RoomOverview />} />
           <Route path="/bookings" element={<Bookings />} />
           <Route path="/allbookings" element={<AllBookings />} />
+          <Route path="/maintainance" element={<MaintanceRooms />} />
         </Routes>
       </div>
     </Router>

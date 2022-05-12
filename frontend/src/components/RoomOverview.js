@@ -206,17 +206,17 @@ function RoomOverview() {
       axios
         .post(process.env.REACT_APP_LOCALHOST + "/admin/createBooking", data)
         .then((res) => {
-          console.log("Errrrr heee--------------", res);
-          if (res.status === 400) {
-            alert("Room is already unavailable");
-            setRedirectVar(navigate("/hotels", { replace: true }));
-          } else if (res.data === "updated") {
+          if (res.data === "updated") {
             alert("Room successfully made unavailable!");
             setRedirectVar(navigate("/hotels", { replace: true }));
           } else {
             setRedirectVar(navigate("/hotels", { replace: true }));
             alert("Room is already unavailable");
           }
+        })
+        .catch(function (error) {
+          alert("Room is already unavailable");
+          console.log("Show error notification!");
         });
     } else {
       let amenities = [];
@@ -255,8 +255,6 @@ function RoomOverview() {
           if (res.data === "updated") {
             updateRewards(r);
             setRedirectVar(navigate("../bookings", { replace: true }));
-          } else if (res.status === 400) {
-            alert("Booking Failed");
           } else {
             alert("Booking Failed");
           }

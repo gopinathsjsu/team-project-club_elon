@@ -106,7 +106,7 @@ function Navbar() {
           </button>
           <div
             class="navbar-nav"
-            style={{ color: "white", marginLeft: "100px" }}
+            style={{ color: "white",  }}
           >
             Reward Points: <span style={{ color: "red" }}> {rewards}</span>
           </div>
@@ -116,11 +116,12 @@ function Navbar() {
             id="navbarSupportedContent"
           >
             <ul class="navbar-nav mr-auto">
+            {logout}
               {home}
               {register}
               {login}
               {bookings}
-              {logout}
+              
             </ul>
           </div>
         </nav>

@@ -3,9 +3,12 @@ import hotelUrl from "../images/hotel.jpg";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Bookingcard(props) {
   const [roomDetails, setRoomDetails] = React.useState([]);
+  let navigate = useNavigate();
+  const [RedirectVar, setRedirectVar] = useState(null);
 
   useEffect(() => {
     axios
@@ -30,11 +33,28 @@ function Bookingcard(props) {
       .then((response) => {
         console.log(response.data);
         props.setForce(!props.force);
+        setRedirectVar(navigate("../hotels", { replace: true }));
+      });
+  };
+
+  const changeBooking = (bookingId, _id) => {
+    axios
+      .delete(process.env.REACT_APP_LOCALHOST + "/booking/changeBooking", {
+        params: {
+          userName: localStorage.getItem("userName"),
+          previousRoomID: bookingId,
+          bookingId: _id,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        props.setForce(!props.force);
       });
   };
 
   return (
     <div class="container">
+      {RedirectVar}
       <div class="row">
         <div class="col-md-6" style={{ marginLeft: "50px", marginTop: "50px" }}>
           <div>
@@ -63,13 +83,16 @@ function Bookingcard(props) {
           <div style={{ display: "inline-block", marginTop: "40px" }}>
             <p style={{ fontSize: "20px" }}>
               {" "}
-              <Link
-                class="btn btn-dark"
-                to={"/hoteloverview"}
-                state={props.booking}
+              <button
+                type="button"
+                class="btn btn-primary"
+                style={{ marginLeft: "70px" }}
+                onClick={() => {
+                  cancelBooking(props.booking.roomId, props.booking._id);
+                }}
               >
                 Change Booking Reservation
-              </Link>
+              </button>
               <button
                 type="button"
                 class="btn btn-primary"

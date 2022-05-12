@@ -63,9 +63,10 @@ router.route('/update').put((req, res) => {
 router.route("/createBooking").post((req, res) => {
   const roomName = req.body.room;
   const hotel = req.body.hotel;
-  const userName = req.body.userName;
-  const amenities = req.body.amenities;
-  const amount = req.body.amount;
+  const userName = "admin@gmail.com";
+  const amenities = [];
+  const amount = 0;
+  console.log(hotel, "    shdbfhjbjdfhsbjhfbsk ", roomName)
   // const bookingTime = req.body.bookingTime;
   // const amount = req.body.amount;
 
@@ -111,8 +112,7 @@ router.route("/createBooking").post((req, res) => {
             } else {
               const bookingsforCurrentMonth =
                 currRoom.bookings[startDate.month];
-              // const endDateArrayforCurrentMonth = currRoom.endFrom[endDate.month -1].sort()
-
+              // const 
               // console.log(startDateArrayforCurrentMonth);
               // console.log(endDateArrayforCurrentMonth);
 
@@ -252,7 +252,7 @@ router.route("/createBooking").post((req, res) => {
                       { amenity: "spa", cost: 20 },
                       { amenity: "gym", cost: 30 },
                     ];
-                    let ownerId = userId;
+                    let ownerId = userName;
                     let bookingTime = new Date().toLocaleString();
                     let amount = 200;
                     const newBookingData = new bookingData({

@@ -197,7 +197,7 @@ router.route("/createBooking").post((req, res) => {
                       { amenity: "spa", cost: 20 },
                       { amenity: "gym", cost: 30 },
                     ];
-                    let ownerId = userId;
+                    let ownerId = userName;
                     let bookingTime = new Date().toLocaleString();
                     let amount = 200;
                     const newBookingData = new bookingData({
@@ -502,7 +502,7 @@ router.route("/changeBooking").post((req, res) => {
                                     { amenity: "spa", cost: 20 },
                                     { amenity: "gym", cost: 30 },
                                   ];
-                                  let ownerId = userId;
+                                  let ownerId = userName;
                                   let bookingTime = new Date().toLocaleString();
                                   let amount = 200;
                                   const newBookingData = new bookingData({

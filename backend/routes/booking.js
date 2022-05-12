@@ -127,13 +127,13 @@ router.route("/createBooking").post((req, res) => {
                         .then(() => res.send("updated"))
                         .catch((err) => {
                           console.log(err);
-                          res.status(400).json("Error: " + err);
+                          // res.status(400).json("Error: " + err);
                         });
                     }
                   })
                   .catch((err2) => {
                     console.log(err2);
-                    res.status(400).json("Error: " + err2);
+                    // res.status(400).json("Error: " + err2);
                   });
               }
             }
@@ -214,7 +214,7 @@ router.route("/createBooking").post((req, res) => {
                       .then(() => res.send("updated"))
                       .catch((err) => {
                         console.log(err);
-                        res.status(400).json("Error: " + err);
+                        // res.status(400).json("Error: " + err);
                       });
                   }
                 })
@@ -248,7 +248,7 @@ router.route("/changeBooking").post((req, res) => {
   userBookings
     .findOne({
       roomId: previousRoomID,
-      ownerId: "chokshiroshan",
+      ownerId: userName,
     })
     .then((result) => {
       console.log(result);
@@ -302,22 +302,22 @@ router.route("/changeBooking").post((req, res) => {
                 console.log("Old bookings deleted. Creting new bookings....");
                 //get date in javascript Date format and fill month and day from that date
                 //first find difference between dates then move to booking if diff <= 7 days
-      
+
                 let startDate = {
                   month: req.body.startDate.month,
                   day: req.body.startDate.day,
                 };
-      
+
                 let endDate = {
                   month: req.body.endDate.month,
                   day: req.body.endDate.day,
                 };
-      
+
                 // startDate.month = req.body.startDate.day;
                 // startDate.day = req.body.startdate.month;
                 // endDate.month = req.body.endDate.day;
                 // endDate.day = req.body.enddate.month;
-      
+
                 //getCurrentRoom
                 singleRoom
                   .find({
@@ -325,13 +325,14 @@ router.route("/changeBooking").post((req, res) => {
                     hotelName: hotel,
                   })
                   .then((result) => {
-                    if (!result) res.status(400).send({ message: "Room Not Found" });
+                    if (!result)
+                      res.status(400).send({ message: "Room Not Found" });
                     else {
                       let roomBooked = false;
                       console.log(result.length);
                       // for (let index = 0; index < array.length; index++) {
                       //   const element = array[index];
-      
+
                       // }
                       result.forEach((currRoom) => {
                         if (!roomBooked) {
@@ -343,12 +344,12 @@ router.route("/changeBooking").post((req, res) => {
                             const bookingsforCurrentMonth =
                               currRoom.bookings[startDate.month - 1];
                             // const endDateArrayforCurrentMonth = currRoom.endFrom[endDate.month -1].sort()
-      
+
                             // console.log(startDateArrayforCurrentMonth);
                             // console.log(endDateArrayforCurrentMonth);
-      
+
                             let flag = 0;
-      
+
                             for (let i = startDate.day; i <= endDate.day; i++) {
                               // console.log(i);
                               if (bookingsforCurrentMonth.includes(i)) {
@@ -363,7 +364,11 @@ router.route("/changeBooking").post((req, res) => {
                             } else {
                               console.log("can book");
                               roomBooked = true;
-                              for (let i = startDate.day; i <= endDate.day; i++) {
+                              for (
+                                let i = startDate.day;
+                                i <= endDate.day;
+                                i++
+                              ) {
                                 //   console.log(typeof parseInt(i);
                                 bookingsforCurrentMonth.push(parseInt(i));
                               }
@@ -385,7 +390,9 @@ router.route("/changeBooking").post((req, res) => {
                                 )
                                 .then((responseBooking) => {
                                   if (!responseBooking) {
-                                    res.status(400).send({ message: "Not found" });
+                                    res
+                                      .status(400)
+                                      .send({ message: "Not found" });
                                   } else {
                                     // roomBooked = true
                                     // res.send("updated");
@@ -408,7 +415,8 @@ router.route("/changeBooking").post((req, res) => {
                                       "2022";
                                     //let amenities = [{amenity:"parking", cost:10}, {amenity:"spa", cost:20}, {amenity:"gym", cost:30}]
                                     let ownerId = userName;
-                                    let bookingTime = new Date().toLocaleString();
+                                    let bookingTime =
+                                      new Date().toLocaleString();
                                     //let amount = 200
                                     const newBookingData = new bookingData({
                                       roomId,
@@ -438,12 +446,12 @@ router.route("/changeBooking").post((req, res) => {
                           const bookingsforCurrentMonth =
                             currRoom.bookings[startDate.month];
                           // const endDateArrayforCurrentMonth = currRoom.endFrom[endDate.month -1].sort()
-      
+
                           // console.log(startDateArrayforCurrentMonth);
                           // console.log(endDateArrayforCurrentMonth);
-      
+
                           let flag = 0;
-      
+
                           for (let i = startDate.day; i <= endDate.day; i++) {
                             // console.log(i);
                             if (bookingsforCurrentMonth.includes(i)) {
@@ -480,7 +488,9 @@ router.route("/changeBooking").post((req, res) => {
                               )
                               .then((responseBooking) => {
                                 if (!responseBooking) {
-                                  res.status(400).send({ message: "Not found" });
+                                  res
+                                    .status(400)
+                                    .send({ message: "Not found" });
                                 } else {
                                   // roomBooked = true
                                   // res.send("updated");
@@ -496,7 +506,11 @@ router.route("/changeBooking").post((req, res) => {
                                     "/" +
                                     "2022";
                                   let enddate =
-                                    endDate.month + "/" + endDate.day + "/" + "2022";
+                                    endDate.month +
+                                    "/" +
+                                    endDate.day +
+                                    "/" +
+                                    "2022";
                                   let amenities = [
                                     { amenity: "parking", cost: 10 },
                                     { amenity: "spa", cost: 20 },
@@ -541,8 +555,6 @@ router.route("/changeBooking").post((req, res) => {
                 console.log(err3);
               });
           }
-
-         
         })
         .catch((err2) => {
           console.log(err2);
@@ -550,17 +562,16 @@ router.route("/changeBooking").post((req, res) => {
     })
     .catch((err) => {
       console.log(err9);
-      res.status(400).send(err9)
+      res.status(400).send(err9);
     });
 });
 
 router.route("/cancelBooking").delete((req, res) => {
   const bookingId = req.query.bookingId;
+  res.setHeader("Content-Type", "application/json");
   bookingData.deleteOne({ _id: bookingId }, (err, result) => {
     if (err) {
       res.status(400).json("Error: " + err);
-    } else {
-      res.send("Deleted");
     }
   });
   const roomName = req.body.room;
@@ -635,17 +646,16 @@ router.route("/cancelBooking").delete((req, res) => {
           }
 
           console.log("Booking Cancelled");
-          res.send("Booking Cancelled")
+          res.send("Booking Cancelled");
         })
         .catch((err2) => {
           console.log(err2);
-          res.send(err2)
+          res.send(err2);
         });
     })
     .catch((err) => {
       console.log(err);
-      res.send(err)
-
+      res.send(err);
     });
 });
 

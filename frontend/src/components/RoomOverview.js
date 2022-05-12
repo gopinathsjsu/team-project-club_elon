@@ -179,15 +179,17 @@ function RoomOverview() {
 
     const startDate = {
       month: sdate.getMonth() + 1,
-      day: sdate.getDate(),
+      day: sdate.getDate() + 1,
     };
 
     const endDate = {
       month: edate.getMonth() + 1,
-      day: edate.getDate(),
+      day: edate.getDate() + 1,
     };
 
-    console.log(props);
+    console.log("start::::::");
+    console.log(startDate);
+    console.log(endDate);
 
     const hotel = props.hotelName;
     const room = props.room.roomName;

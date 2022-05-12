@@ -162,7 +162,7 @@ function RoomOverview() {
   const updateRewards = () => {
     let userName = localStorage.getItem("userName");
     let data = {
-      userName,
+      username: userName,
       rewards: Math.floor(totalPrice / 10),
     };
     axios

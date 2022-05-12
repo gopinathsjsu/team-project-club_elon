@@ -576,13 +576,13 @@ router.route("/cancelBooking").delete((req, res) => {
   });
   const roomName = req.body.room;
   const hotel = req.body.hotel;
-  const userName = req.body.userName;
+  const userName = req.query.userName;
   const amenities = req.body.amenities;
   const amount = req.body.amount;
-  const previousRoomID = "62687ec4faa5de59228c5e3a";
+  const previousRoomID = req.query.previousRoomID;
   const prevStartdate = null;
   const prevEnddate = null;
-
+  console.log(req.query);
   //first cancel previous booking then create new booking
   // console.log(userName);
   userBookings

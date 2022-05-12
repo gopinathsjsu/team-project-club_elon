@@ -101,3 +101,54 @@
 - No blockers
 
 
+
+# Team: Club Elon, Sprint #3    
+
+## Team member
+1. Ruturaj Nawale
+
+### What I did since the last sprint:
+- Completed hotels page
+
+### What I plan to do in the next sprint:
+- Complete Admin page
+
+### What blockers I have:
+- No blockers
+
+## Team member
+2. Roshan Chokshi
+
+### What I did since the last sprint:
+- Continued working on the previous tasks and made progress
+
+### What I plan to do in the next sprint:
+- Complete all ths remaining tasks
+
+### What blockers I have:
+- No blockers
+
+## Team member
+3. Chandra Pavan Reddy
+
+### What I did since the last sprint:
+- Continued working on admin api
+
+### What I plan to do in the next sprint:
+- Complete admin api
+
+### What blockers I have:
+- No blockers
+
+## Team member
+4. Yaduvendra Singh
+
+### What I did since the last sprint:
+- Completed booking api
+
+### What I plan to do in the next sprint:
+- Complete hotel api
+
+### What blockers I have:
+- Issue in booking at the end of the month
+

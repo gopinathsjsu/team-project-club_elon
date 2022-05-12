@@ -31,7 +31,7 @@ function RoomOverview() {
     displayAmenities = "none";
     DateIn = "Make Unavailable from:";
     DateOut = " to:";
-    buttonActionText = "Make room Unavailable";
+    buttonActionText = "Keep under maintainance";
     buttonColor = "darkred";
   } else {
   }
@@ -207,15 +207,18 @@ function RoomOverview() {
         .post(process.env.REACT_APP_LOCALHOST + "/admin/createBooking", data)
         .then((res) => {
           if (res.data === "updated") {
-            alert("Room successfully made unavailable!");
-            setRedirectVar(navigate("/hotels", { replace: true }));
+            alert("Room successfully kept under maintainance!");
+            setRedirectVar(navigate("/maintainance", { replace: true }));
           } else {
-            setRedirectVar(navigate("/hotels", { replace: true }));
-            alert("Room is already unavailable");
+            alert("Room successfully kept under maintainance!");
+            setRedirectVar(navigate("/maintainance", { replace: true }));
           }
         })
         .catch(function (error) {
-          alert("Room is already unavailable");
+          alert(
+            "Cannot make room under maintainance as someone has booked this room for these dates"
+          );
+          setRedirectVar(navigate("/hotels", { replace: true }));
           console.log("Show error notification!");
         });
     } else {

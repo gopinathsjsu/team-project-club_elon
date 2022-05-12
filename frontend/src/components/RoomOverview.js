@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function RoomOverview() {
   const location = useLocation();
-  const room = location?.state;
+  const props = location?.state;
   const [checkInDate, setCheckInDate] = useState([]);
   const [checkOutDate, setCheckOutDate] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -56,7 +56,7 @@ function RoomOverview() {
   const [RedirectVar, setRedirectVar] = useState(null);
   let navigate = useNavigate();
 
-  console.log(room);
+  console.log(props.room);
   const getCheckOutDate = (checkInDate, numberOfdays) => {
     console.log(checkInDate);
     let date = new Date(checkInDate);
@@ -86,9 +86,12 @@ function RoomOverview() {
       day: edate.getDate(),
     };
 
-    const hotel = roomData.hotel;
-    const room = roomData.roomName;
+    console.log(props);
+    
+    const hotel = props.hotelName;
+    const room = props.room.roomName;
 
+    console.log(hotel, "    shdbfhjbjdfhsbjhfbsk ", room)
     console.log({ startDate, endDate, hotel, room });
 
     if (localStorage.getItem("userName") === "admin@gmail.com") {
@@ -192,7 +195,7 @@ function RoomOverview() {
     if (weekends === 0) {
       setIsWeekend(false);
     }
-    setTotalPrice(days * room.roomPrice);
+    setTotalPrice(days * props.room.roomPrice);
   };
 
   const checkWeekend = (date) => {
@@ -226,8 +229,8 @@ function RoomOverview() {
         style={{ border: "rgba(0,0,0,.125) solid 1px" }}
       >
         <div className="col-md-8 offset-md-4">
-          <h2> Type: {room.roomName}</h2>
-          <h3>Price of room: ${room.roomPrice}</h3>
+          <h2> Type: {props.room.roomName}</h2>
+          <h3>Price of room: ${props.room.roomPrice}</h3>
         </div>
         <div className="col-md-8 offset-md-2">
           <label>
@@ -351,18 +354,18 @@ function RoomOverview() {
           <h3>Total price:&emsp; ${totalPrice}</h3>
           <h5 style={{ fontStyle: "italic", color: "red" }}>
             {isWeekend
-              ? "Cost for Weekends are 2X: $" + room.roomPrice * 2
+              ? "Cost for Weekends are 2X: $" + props.room.roomPrice * 2
               : ""}
           </h5>
           <h5 style={{ fontStyle: "italic", color: "red" }}>
             {isHoliday
-              ? "Cost for Holidays are 3X: $" + room.roomPrice * 3
+              ? "Cost for Holidays are 3X: $" +props.room.roomPrice * 3
               : ""}
           </h5>
         </div>
         <button
           className="btn btn-dark"
-          onClick={() => checkBooking(checkInDate, checkOutDate, room)}
+          onClick={() => checkBooking(checkInDate, checkOutDate, props)}
           style={{ marginTop: "30px", backgroundColor: buttonColor }}
         >
           {buttonActionText}

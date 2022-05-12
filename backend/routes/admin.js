@@ -17,18 +17,18 @@ router.route("/login").post((req, res) => {
     .then(async (user) => {
       if (user.length == 0) {
         {
-          res.status(400).send("Wrong username password combination!");
+          res.status(200).send("Wrong username password combination!");
         }
       } else if (user) {
         let verified = await bcrypt.compare(password, user[0].password);
         if (verified) {
           res.status(200).send("Logged in!");
         } else if (!verified) {
-          res.status(400).send("Wrong username password combination");
+          res.status(200).send("Wrong username password combination");
         }
       }
     })
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => res.status(200).json("Error: " + err));
 });
 
 router.route("/delete").delete((req, res) => {
@@ -38,10 +38,10 @@ router.route("/delete").delete((req, res) => {
     username: username,
   })
     .then((users) => {
-      if (!users) res.status(400).send({ message: "Not found" });
+      if (!users) res.status(200).send({ message: "Not found" });
       else res.send(users);
     })
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => res.status(200).json("Error: " + err));
 });
 
 router.route("/update").put((req, res) => {
@@ -54,10 +54,10 @@ router.route("/update").put((req, res) => {
     { $set: { age: 10 } }
   )
     .then((users) => {
-      if (!users) res.status(400).send({ message: "Not found" });
+      if (!users) res.status(200).send({ message: "Not found" });
       else res.send(users);
     })
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => res.status(200).json("Error: " + err));
 });
 
 router.route("/createBooking").post((req, res) => {
@@ -66,7 +66,6 @@ router.route("/createBooking").post((req, res) => {
   const userName = "admin@gmail.com";
   const amenities = [];
   const amount = 0;
-  console.log(hotel, "    shdbfhjbjdfhsbjhfbsk ", roomName);
   // const bookingTime = req.body.bookingTime;
   // const amount = req.body.amount;
 
@@ -95,7 +94,7 @@ router.route("/createBooking").post((req, res) => {
       hotelName: hotel,
     })
     .then((result) => {
-      if (!result) res.status(400).send({ message: "Room Not Found" });
+      if (!result) res.status(200).send({ message: "Room Not Found" });
       else {
         let roomBooked = false;
         console.log(result.length);
@@ -153,7 +152,7 @@ router.route("/createBooking").post((req, res) => {
                   )
                   .then((responseBooking) => {
                     if (!responseBooking) {
-                      res.status(400).send({ message: "Not found" });
+                      res.status(200).send({ message: "Not found" });
                     } else {
                       // roomBooked = true
                       // res.send("updated");
@@ -182,13 +181,13 @@ router.route("/createBooking").post((req, res) => {
                         .then(() => res.send("updated"))
                         .catch((err) => {
                           console.log(err);
-                          // res.status(400).json("Error: " + err);
+                          // res.status(200).json("Error: " + err);
                         });
                     }
                   })
                   .catch((err2) => {
                     console.log(err2);
-                    // res.status(400).json("Error: " + err2);
+                    // res.status(200).json("Error: " + err2);
                   });
               }
             }
@@ -236,7 +235,7 @@ router.route("/createBooking").post((req, res) => {
                 )
                 .then((responseBooking) => {
                   if (!responseBooking) {
-                    res.status(400).send({ message: "Not found" });
+                    res.status(200).send({ message: "Not found" });
                   } else {
                     // roomBooked = true
                     // res.send("updated");
@@ -269,33 +268,33 @@ router.route("/createBooking").post((req, res) => {
                       .then(() => res.send("updated"))
                       .catch((err) => {
                         console.log(err);
-                        res.status(400).json("Error: " + err);
+                        res.status(200).json("Error: " + err);
                       });
                   }
                 })
                 .catch((err2) => {
                   console.log(err2);
-                  res.status(400).json("Error: " + err2);
+                  res.status(200).json("Error: " + err2);
                 });
             }
           }
         });
         if (!roomBooked) {
-          res.status(400).send("Cannot Book");
+          res.status(200).send("Cannot Book");
         }
       }
     })
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => res.status(200).json("Error: " + err));
 });
 
 router.route("/showbookings").get((req, res) => {
   bookingData
-    .find()
+    .find({ownerId: {$ne:"admin@gmail.com"}})
     .then((bookings) => {
-      if (!bookings) res.status(400).send({ message: "Hotel Not Found" });
+      if (!bookings) res.status(200).send({ message: "Hotel Not Found" });
       else res.json(bookings);
     })
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => res.status(200).json("Error: " + err));
 });
 
 module.exports = router;

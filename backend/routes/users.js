@@ -66,12 +66,12 @@ router.route("/register").post(async (req, res, next) => {
   const password = await bcrypt.hash(reqPassword, salt);
   // console.log(typeof hashPassword);
   // const age = req.body.age;
-  let rewards = 0
+  let rewards = 0;
   if (!username) {
     next(ApiError.badRequest("username cannot be empty"));
     return;
   }
-  const newUser = new User({ username, password, rewards});
+  const newUser = new User({ username, password, rewards });
 
   newUser
     .save()
@@ -93,11 +93,11 @@ router.route("/mybookings").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route("/updateRewards").post((req, res) =>{
+router.route("/updateRewards").post((req, res) => {
   const username = req.body.username;
   const newRewards = req.body.rewards;
-  User
-  .updateOne(
+  console.log(newRewards);
+  User.updateOne(
     {
       username: username,
     },
@@ -106,15 +106,17 @@ router.route("/updateRewards").post((req, res) =>{
         rewards: newRewards,
       },
     }
-  ).then((result) => {
-    res.send("Rewards Updated")
-  }).catch((err) => {
-    res.send(err)
-  });
-})
+  )
+    .then((result) => {
+      res.send("Rewards Updated");
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 
-router.route("/getRewards").get((req, res) =>{
-  const username = req.body.username;
+router.route("/getRewards").get((req, res) => {
+  const username = req.query.username;
 
   User.find({
     username: username,
@@ -126,10 +128,10 @@ router.route("/getRewards").get((req, res) =>{
         }
       } else if (user) {
         console.log(user);
-        res.status(200).send({"rewards": user[0].rewards})
+        res.status(200).send({ rewards: user[0].rewards });
       }
     })
     .catch((err) => res.status(400).json("Error: " + err));
-})
+});
 
 module.exports = router;

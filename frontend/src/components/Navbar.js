@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Navbar() {
   let home = null;
@@ -7,6 +9,7 @@ function Navbar() {
   let login = null;
   let logout = null;
   let bookings = null;
+  const [rewards, setrewards] = useState(0);
 
   if (!localStorage.getItem("userName")) {
     register = (
@@ -41,7 +44,7 @@ function Navbar() {
       </Link>
     );
 
-    if(localStorage.getItem("userName") === "admin@gmail.com") {
+    if (localStorage.getItem("userName") === "admin@gmail.com") {
       bookings = (
         <Link class="nav-link" to={"/allbookings"}>
           All user's Bookings <span class="sr-only">(current)</span>
@@ -55,6 +58,19 @@ function Navbar() {
       );
     }
   }
+
+  useEffect(() => {
+    if (localStorage.getItem("userName")) {
+      axios
+        .get(process.env.REACT_APP_LOCALHOST + "/users/getRewards", {
+          params: { username: localStorage.getItem("userName") },
+        })
+        .then((response) => {
+          setrewards(response.data.rewards);
+        });
+    }
+  }, []);
+
   return (
     <div>
       <head>
@@ -88,6 +104,12 @@ function Navbar() {
           >
             <span class="navbar-toggler-icon"></span>
           </button>
+          <div
+            class="navbar-nav"
+            style={{ color: "white", marginLeft: "100px" }}
+          >
+            Reward Points: <span style={{ color: "red" }}> {rewards}</span>
+          </div>
 
           <div
             class="collapse navbar-collapse offset-8"

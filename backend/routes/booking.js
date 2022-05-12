@@ -226,7 +226,7 @@ router.route("/createBooking").post((req, res) => {
           }
         });
         if (!roomBooked) {
-          res.status(400).send("Cannot Book");
+          res.status(400).send("Cannot Book, Already Booked");
         }
       }
     })

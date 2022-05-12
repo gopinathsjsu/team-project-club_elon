@@ -35,17 +35,21 @@ function Login() {
       .post(process.env.REACT_APP_LOCALHOST + "/users/login", data)
       .then((response) => {
         console.log(response.data);
-        if (response.status === 200) {
+        if (response.data === "Logged in!") {
           setRedirectVar(navigate("../hotels", { replace: true }));
           localStorage.setItem("userName", username);
+          window.location.reload();
         } else {
-          setAuthMsg(
-            <p style={{ color: "red" }}>
-              Invalid credentials. Please check again, or register for new
-              account.
-            </p>
-          );
         }
+      })
+      .catch(function (error) {
+        setAuthMsg(
+          <p style={{ color: "red" }}>
+            Invalid credentials. Please check again, or register for new
+            account.
+          </p>
+        );
+        console.log("Show error notification!");
       });
   };
 

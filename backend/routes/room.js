@@ -14,7 +14,6 @@ router.route("/getroom").get((req, res) => {
           error: err,
         });
       } else {
-        console.log(room);
         res.json({ room: room[0].roomName, hotel: room[0].hotelName });
       }
     }

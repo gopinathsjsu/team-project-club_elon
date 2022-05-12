@@ -81,7 +81,6 @@ router.route("/register").post(async (req, res, next) => {
 
 router.route("/mybookings").get((req, res) => {
   const ownerId = req.query.ownerId;
-  console.log(ownerId);
   bookingData
     .find({
       ownerId: ownerId,
@@ -103,7 +102,6 @@ router.route("/updateRewards").post((req, res) => {
     },
     {
       $inc: { rewards: newRewards },
-
     }
   )
     .then((result) => {

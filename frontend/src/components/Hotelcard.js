@@ -7,13 +7,13 @@ function Hotelcard(props) {
   let hotelButton = null;
   if (isAdmin) {
     hotelButton = (
-      <Link class="btn btn-success" to={"/hoteloverview"} state={props.hotel}>
+      <Link class="btn btn-success" to={"/hoteloverview"} state={props}>
         Room Maintainance
       </Link>
     );
   } else {
     hotelButton = (
-      <Link class="btn btn-dark" to={"/hoteloverview"} state={props.hotel}>
+      <Link class="btn btn-dark" to={"/hoteloverview"} state={props}>
         View Rates
       </Link>
     );
@@ -29,7 +29,7 @@ function Hotelcard(props) {
         }}
       >
         <div class="col-md-4">
-          <img src={hotelUrl} alt="Unavailable" style={{ width: "100%" }}></img>
+          <img src={props.images[props.ind]} alt="Unavailable" style={{ width: "100%" }}></img>
         </div>
 
         <div class="col-md-4">

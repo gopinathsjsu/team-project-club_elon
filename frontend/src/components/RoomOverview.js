@@ -31,7 +31,7 @@ function RoomOverview() {
     displayAmenities = "none";
     DateIn = "Make Unavailable from:";
     DateOut = " to:";
-    buttonActionText = "Make room Unavailable";
+    buttonActionText = "Keep under maintainance";
     buttonColor = "darkred";
   } else {
   }
@@ -179,15 +179,17 @@ function RoomOverview() {
 
     const startDate = {
       month: sdate.getMonth() + 1,
-      day: sdate.getDate(),
+      day: sdate.getDate() + 1,
     };
 
     const endDate = {
       month: edate.getMonth() + 1,
-      day: edate.getDate(),
+      day: edate.getDate() + 1,
     };
 
-    console.log(props);
+    console.log("start::::::");
+    console.log(startDate);
+    console.log(endDate);
 
     const hotel = props.hotelName;
     const room = props.room.roomName;
@@ -207,15 +209,18 @@ function RoomOverview() {
         .post(process.env.REACT_APP_LOCALHOST + "/admin/createBooking", data)
         .then((res) => {
           if (res.data === "updated") {
-            alert("Room successfully made unavailable!");
-            setRedirectVar(navigate("/hotels", { replace: true }));
+            alert("Room successfully kept under maintainance!");
+            setRedirectVar(navigate("/maintainance", { replace: true }));
           } else {
-            setRedirectVar(navigate("/hotels", { replace: true }));
-            alert("Room is already unavailable");
+            alert("Room successfully kept under maintainance!");
+            setRedirectVar(navigate("/maintainance", { replace: true }));
           }
         })
         .catch(function (error) {
-          alert("Room is already unavailable");
+          alert(
+            "Cannot make room under maintainance as someone has booked this room for these dates"
+          );
+          setRedirectVar(navigate("/hotels", { replace: true }));
           console.log("Show error notification!");
         });
     } else {
@@ -249,6 +254,14 @@ function RoomOverview() {
         amount: totalPrice,
       };
 
+      if (r > totalPrice) {
+        setTotalPrice(0);
+        data.amount = 0;
+      } else {
+        setTotalPrice(totalPrice - r);
+        data.amount = totalPrice - r;
+      }
+
       axios
         .post(process.env.REACT_APP_LOCALHOST + "/booking/createBooking", data)
         .then((res) => {
@@ -275,10 +288,17 @@ function RoomOverview() {
         rewards: Math.floor(totalPrice / 10),
       };
     } else {
-      data = {
-        username: userName,
-        rewards: r - rewards,
-      };
+      if (r > totalPrice) {
+        data = {
+          username: userName,
+          rewards: -totalPrice,
+        };
+      } else {
+        data = {
+          username: userName,
+          rewards: -r,
+        };
+      }
     }
     axios
       .post(process.env.REACT_APP_LOCALHOST + "/users/updateRewards", data)

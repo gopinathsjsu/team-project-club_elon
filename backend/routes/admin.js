@@ -64,9 +64,9 @@ router.route("/createBooking").post((req, res) => {
   console.log("Booking your room.....");
   const roomName = req.body.room;
   const hotel = req.body.hotel;
-  const userName = req.body.userName;
-  const amenities = req.body.amenities;
-  const amount = req.body.amount;
+  const userName = "admin@gmail.com";
+  const amenities = [];
+  const amount = 0;
   // const bookingTime = req.body.bookingTime;
   // const amount = req.body.amount;
 

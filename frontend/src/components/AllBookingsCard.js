@@ -1,5 +1,8 @@
 import React from "react";
 import hotelUrl from "../images/hotel.jpg";
+import sanjose from "../images/sanjose.jpg";
+import newyork from "../images/newyork.jpg";
+import chicago from "../images/hotel.jpg";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";

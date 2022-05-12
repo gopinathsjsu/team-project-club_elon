@@ -5,7 +5,9 @@ import hotelUrl from "../images/hotel.jpg";
 
 function Hoteloverview() {
   const location = useLocation();
-  const hotel = location?.state;
+  const hotel = location?.state.hotel;
+  const ind = location?.state.ind;
+  const images = location?.state.images;
   
   console.log(hotel);
   return (
@@ -14,7 +16,7 @@ function Hoteloverview() {
         <div class="col-md-8 offset-md-4">
           <div class="col-md-4">
             <img
-              src={hotelUrl}
+              src={images[ind]}
               alt="Unavailable"
               style={{ width: "100%", display: "block" }}
             ></img>

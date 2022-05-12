@@ -91,7 +91,7 @@ function RoomOverview() {
     const hotel = props.hotelName;
     const room = props.room.roomName;
 
-    console.log(hotel, "    shdbfhjbjdfhsbjhfbsk ", room);
+    console.log(hotel, "    ---------------and--------------- ", room);
     console.log({ startDate, endDate, hotel, room });
 
     if (localStorage.getItem("userName") === "admin@gmail.com") {
@@ -105,12 +105,17 @@ function RoomOverview() {
       axios
         .post(process.env.REACT_APP_LOCALHOST + "/admin/createBooking", data)
         .then((res) => {
-          if (res.data === "updated") {
-            setRedirectVar(navigate("../bookings", { replace: true }));
-          } else if (res.status === 400) {
-            alert("Booking Failed");
+          console.log("Errrrr heee--------------", res)
+          if(res.status === 400) {
+            alert("Room is already unavailable");
+            setRedirectVar(navigate("/hotels", { replace: true }));
+          }
+          else if ( res.data === "updated") {
+            alert("Room successfully made unavailable!");
+            setRedirectVar(navigate("/hotels", { replace: true }));
           } else {
-            alert("Booking Failed");
+            setRedirectVar(navigate("/hotels", { replace: true }));
+            alert("Room is already unavailable");
           }
         });
     } else {

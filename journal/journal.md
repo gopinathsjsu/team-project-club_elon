@@ -48,3 +48,56 @@
 ### What blockers I have:
 - No blockers
 
+
+
+# Team: Club Elon, Sprint #2
+
+## Team member
+1. Ruturaj Nawale
+
+### What I did since the last sprint:
+- Worked on hotels page
+
+### What I plan to do in the next sprint:
+- Continue working on Admin page
+
+### What blockers I have:
+- Issue in blocking rooms for admin
+
+## Team member
+2. Roshan Chokshi
+
+### What I did since the last sprint:
+- Started working on rooms page
+
+### What I plan to do in the next sprint:
+- Complete the rooms page
+
+### What blockers I have:
+- No blockers
+
+## Team member
+3. Chandra Pavan Reddy
+
+### What I did since the last sprint:
+- Completed Sign up and Login apis and started admin api
+
+### What I plan to do in the next sprint:
+- Work on admin api
+
+### What blockers I have:
+- No blockers
+
+## Team member
+4. Yaduvendra Singh
+
+### What I did since the last sprint:
+- Continued working on booking api, completed DB design and started hotel api
+
+### What I plan to do in the next sprint:
+- Work on booking api
+
+### What blockers I have:
+- No blockers
+
+

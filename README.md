@@ -30,3 +30,15 @@
 ## Link to the team's Google Sprint Task Sheet
 - https://docs.google.com/spreadsheets/d/1phWNbSikkfqJ3_WU8SjV5_WpeZODUOclKVYyijLYNZc/edit?usp=sharing
 
+## UI Wireframes
+- https://app.moqups.com/lJ1g3zEYNqLSdPZxfD8GpbGpZZDLtPpW/view/page/a001db744
+
+## XP Core Values:
+- Communication
+- Feedback
+- Simplicity
+
+## Arhitecture Diagram
+![image](https://github.com/gopinathsjsu/team-project-club_elon/blob/main/frontend/src/images/architecture.png?raw=true)
+
+
